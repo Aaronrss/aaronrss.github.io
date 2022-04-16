@@ -2,35 +2,80 @@
 
 <head>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
     </style>
-    <link rel="stylesheet" href="/css/styles.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aaron Rosas' Portal</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/menu.js"></script>
 </head>
 
 <body>
     <canvas id="Matrix"></canvas>
-    <div class="container-text">
-        <hr>
-        <h1>AARON ROSAS' PORTAL</h1>
-        <h2>ABOUT ME</h2>
-        <p>I am a student and website developer in Mexico.</p>
-        <p>I am currently the founder and software engineer of Create It</p>
+    <div class="wrapper">
+        <div class="container-card">
+            <div id="header">
+                <div id="contentForm">
+                    <div class="itemRotator a1"></div>
+                    <div class="itemRotator a2"></div>
+                    <div class="itemRotator a3"></div>
+                    <div id="form">AR</div>
+                </div>
+                <h1>AARON ROSAS' PORTAL</h1>
 
-        <h2>Credentials and Portfolio</h2>
-        <p><a href="resume.html">My Resume</a> | <a href="https://github.com/aaronrss">My GitHub</a></p>
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:aaron.rosas@criptext.com">aaron.rosas@criptext.com</a></p>
-        <footer>
-            <hr>
-            <code>Copyright (c) 2022 Aaron Rosas</code>
-        </footer>
+                <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
+                <ul class="main-menu">
+                    <li><a class="active" href="#home">home</a></li>
+                    <li><a href="#about">about</a></li>
+                    <li><a href="#contact">contact</a></li>
+                </ul>
+
+                <hr />
+            </div>
+            <div id="container">
+                <div class="inner">
+                    <div id="content">
+                        <div id="home" class="content-region hide" style="display: block">
+                            <h2>Home</h2>
+                            <p>Be wolcome to my site</p>
+                        </div>
+
+                        <div id="about" class="content-region hide" style="display: none">
+                            <h2>About me</h2>
+                            <p>I am a student and website developer in Mexico.</p>
+                            <p>
+                                I am currently the founder and software engineer of Create It
+                            </p>
+                        </div>
+
+                        <div id="contact" class="content-region hide" style="display: none">
+                            <h3>Contact</h3>
+                            <p>
+                                Email:
+                                <a href="mailto:aaron.rosas@criptext.com">aaron.rosas@criptext.com</a>
+                            </p>
+                            <h3>Credentials and Portfolio</h3>
+                            <p>
+                                <a href="resume.html">My Resume</a> |
+                                <a href="https://github.com/aaronrss">My GitHub</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <hr />
+                <code>Copyright (c) 2022 Aaron Rosas</code>
+            </footer>
+        </div>
     </div>
+    <script src="js/index.js"></script>
 </body>
-
-<script src="js/index.js"></script>
 
 </html>
