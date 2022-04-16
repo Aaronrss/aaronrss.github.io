@@ -54,7 +54,7 @@ h6 {
  * Quotes & Blockquotes
  */
 q {
-  quotes: "\00201C""\00201D";
+  quotes: "\00201C","\00201D";
 }
 q:before {
   content: open-quote;
