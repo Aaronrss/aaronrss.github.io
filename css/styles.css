@@ -1,7 +1,7 @@
 /* LINKS */
 a {
   font-weight: normal;
-  color: #00b300;
+  color: #e7aaff;
   text-decoration: none;
 }
 
@@ -33,11 +33,11 @@ h1 {
   font-size: 2.5rem;
 }
 h2 {
-  color: #00b300;
+  color: #bf64f0;
   font-size: 2em;
 }
 h3 {
-  color: #00b300;
+  color: #bf64f0;
   font-size: 1.5rem;
 }
 h4 {
@@ -54,7 +54,7 @@ h6 {
  * Quotes & Blockquotes
  */
 q {
-  quotes: "\00201C","\00201D";
+  quotes: "\00201C", "\00201D";
 }
 q:before {
   content: open-quote;
@@ -72,6 +72,9 @@ body {
   color: white;
   line-height: 1.15;
   font-family: "Electrolize", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 /* SUPERPOSITION USING Z AXIS */
 canvas {
@@ -88,13 +91,13 @@ canvas {
 }
 
 .container-card {
-  background-color: rgba(10, 10, 10, 0.8);
+  background-color: rgba(10, 10, 10, 0.5);
 }
 
 #header,
 #content,
 footer {
-  padding: 20px;
+  padding: 12px;
 }
 
 footer {
@@ -103,6 +106,12 @@ footer {
 }
 
 /* LOGO */
+
+.logo {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
 
 #contentForm {
   width: 120px;
