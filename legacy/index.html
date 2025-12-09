@@ -1,79 +1,114 @@
 <html lang="en">
-
-<head>
+  <head>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
     </style>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/legacy/css/styles.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aaron Rosas' Portal</title>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="/js/menu.js"></script>
-</head>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/legacy/js/menu.js"></script>
+  </head>
 
-<body>
+  <body>
     <canvas id="Matrix"></canvas>
     <div class="wrapper">
-        <div class="container-card">
-            <div id="header">
-                <div class="logo">
-                    <div id="contentForm">
-                        <div class="itemRotator a1"></div>
-                        <div class="itemRotator a2"></div>
-                        <div class="itemRotator a3"></div>
-                        <div id="form">AR</div>
-                    </div>
-                </div>
-                <h1>AARON ROSAS' PORTAL</h1>
-                <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
-                <ul class="main-menu">
-                    <li><a class="active" href="#home">home</a></li>
-                    <li><a href="#about">about</a></li>
-                    <li><a href="#contact">contact</a></li>
-                </ul>
-
-                <hr />
+      <div class="container-card">
+        <div id="header">
+          <div class="logo">
+            <div id="contentForm">
+              <div class="itemRotator a1"></div>
+              <div class="itemRotator a2"></div>
+              <div class="itemRotator a3"></div>
+              <div id="form">AR</div>
             </div>
-            <div id="container">
-                <div class="inner">
-                    <div id="content">
-                        <div id="home" class="content-region hide" style="display: block">
-                            <h2>Home</h2>
-                            <p>Be welcome to my site</p>
-                        </div>
+          </div>
+          <h1>AARON ROSAS' PORTAL</h1>
+          <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
+          <ul class="main-menu">
+            <li><a class="active" href="#home">home</a></li>
+            <li><a href="#about">about</a></li>
+            <li><a href="#contact">contact</a></li>
+          </ul>
 
-                        <div id="about" class="content-region hide" style="display: none">
-                            <h2>About me</h2>
-                            <p>Software Developer born in México City</p>
-                        </div>
-
-                        <div id="contact" class="content-region hide" style="display: none">
-                            <h3>Contact</h3>
-                            <p>
-                                Email:
-                                <a href="mailto:aaron.rosas@criptext.com">aaron.rosas@criptext.com</a>
-                            </p>
-                            <h3>Credentials and Portfolio</h3>
-                            <p>
-                                <a href="resume.html">My Resume</a> |
-                                <a href="https://github.com/aaronrss">My GitHub</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <hr />
-                <code>Copyright (c) 2022 Aaron Rosas</code>
-            </footer>
+          <hr />
         </div>
-    </div>
-    <script src="js/index.js"></script>
-</body>
+        <div id="container">
+          <div class="inner">
+            <div id="content">
+              <div id="home" class="content-region hide" style="display: block">
+                <div class="card">
 
+                    <h2>Home</h2>
+                    <p>Be welcome to my site</p>
+                </div>
+              </div>
+
+              <div id="about" class="content-region hide" style="display: none">
+                <div class="card">
+                  <h2>About me</h2>
+                  <p>
+                    Software Engineer passionate about backend development,
+                    cloud technologies, distributed systems, and developer
+                    experience.
+                  </p>
+
+                  <p>
+                    Graduated as a Computer Science Engineer at ITESM (ITESM
+                    Santa Fe). I enjoy designing systems that are clean,
+                    scalable, secure, and observable.
+                  </p>
+
+                  <p>
+                    I balance my technical side with creativity — I produce
+                    electronic music, DJ, explore fitness and wellness, and
+                    follow a vegan lifestyle.
+                  </p>
+
+                  <p>
+                    Currently building high-quality engineering projects while
+                    documenting everything to teach, inspire, and simplify
+                    complex topics for others.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                id="contact"
+                class="content-region hide"
+                style="display: none"
+              >
+              <div class="card">
+
+                  <h3>Contact</h3>
+                  <p>
+                      Email:
+                      <a href="mailto:aaronrosas@pm.me">aaronrosas@pm.me</a>
+                    </p>
+                    <h3>Credentials and Portfolio</h3>
+                    <p>
+                        <a href="resume.html">My Resume</a> |
+                        <a href="https://github.com/aaronrss/">My GitHub</a>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <hr />
+          <code>Copyright (c) 2022 Aaron Rosas</code>
+        </footer>
+      </div>
+    </div>
+    <script src="/legacy/js/index.js"></script>
+  </body>
 </html>
