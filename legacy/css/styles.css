@@ -203,7 +203,6 @@ ul.main-menu li a {
   font-size: 1rem;
   border-bottom: solid transparent 3px;
   color: #cfd2da;
-  ;
 }
 ul.main-menu li a:hover {
   color: #ffffff;
@@ -223,70 +222,6 @@ ul.main-menu li a.active {
 }
 
 /* ===== CV CARD STYLE ===== */
-.resume-card {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 50px;
-  background: rgba(0, 0, 0, 0.35);
-  /* suave, elegante, deja ver el matrix */
-  border-radius: 12px;
-  backdrop-filter: blur(6px);
-}
-
-/* Mejorar legibilidad del texto */
-.resume-card p,
-.resume-card li {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #e2e2e2;
-}
-
-.resume-card ul {
-  margin: 0 auto;
-  padding-left: 25px;
-  /* pega el texto al bullet */
-  text-align: left;
-  /* alinea TODO el bullet list a la izquierda */
-  list-style-position: outside;
-  max-width: 800px;
-  /* opcional: mantiene buena legibilidad */
-}
-
-.resume-card li {
-  margin: 6px 0;
-  line-height: 1.5;
-}
-
-/* headers */
-.resume-card h2 {
-  text-align: center;
-  margin-top: 40px;
-  color: #ff4de3;
-  font-size: 1.8rem;
-}
-
-.resume-card {
-  text-align: justify;
-}
-
-.resume-card h3 {
-  margin-top: 25px;
-  color: #d86bff;
-  text-align: center;
-}
-
-.resume-card h4 {
-  margin-top: 10px;
-  color: #b6b6b6;
-  text-align: center;
-}
-
-.resume-card hr {
-  border-color: rgba(255, 255, 255, 0.15);
-  margin: 30px 0;
-}
-
-/* ===== CV CARD STYLE ===== */
 .card {
   max-width: 900px;
   margin: 0 auto;
@@ -303,4 +238,45 @@ ul.main-menu li a.active {
   font-size: 1.05rem;
   line-height: 1.6;
   color: #e2e2e2;
+}
+
+.card ul {
+  margin: 0 auto;
+  padding-left: 25px;
+  /* pega el texto al bullet */
+  text-align: left;
+  /* alinea TODO el bullet list a la izquierda */
+  list-style-position: outside;
+  max-width: 800px;
+  /* opcional: mantiene buena legibilidad */
+}
+
+.card li {
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+/* headers */
+.card h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #ff4de3;
+  font-size: 1.8rem;
+}
+
+.card h3 {
+  margin-top: 25px;
+  color: #d86bff;
+  text-align: center;
+}
+
+.card h4 {
+  margin-top: 10px;
+  color: #b6b6b6;
+  text-align: center;
+}
+
+.card hr {
+  border-color: rgba(255, 255, 255, 0.15);
+  margin: 30px 0;
 }
