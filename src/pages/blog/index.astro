@@ -11,23 +11,23 @@ const categories = [...new Set(allPosts.map((post) => post.data.category))];
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 ---
 
-<BaseLayout title="Blog | Portfolio" description="Artículos sobre desarrollo web, tutoriales y experiencias">
+<BaseLayout title="Blog | Portfolio" description="Articles about web development, tutorials, and experiences">
   <Hero
     title="Blog"
-    subtitle="Artículos y Tutoriales"
-    description="Comparto mis conocimientos, experiencias y aprendizajes sobre desarrollo web, programación y tecnología."
+    subtitle="Articles & Tutorials"
+    description="Sharing my knowledge, experiences, and learnings about web development, programming, and technology."
   />
 
   <section class="blog-section">
     <div class="container">
       <aside class="filters">
         <div class="filter-group">
-          <h3 class="filter-title">Buscar</h3>
+          <h3 class="filter-title">Search</h3>
           <div class="search-box">
             <input 
               type="text" 
               id="search-input" 
-              placeholder="Buscar artículos..." 
+              placeholder="Search articles..." 
               class="search-input"
               autocomplete="off"
             />
@@ -35,10 +35,10 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
         </div>
 
         <div class="filter-group">
-          <h3 class="filter-title">Categorías</h3>
+          <h3 class="filter-title">Categories</h3>
           <div class="filter-list">
             <button class="filter-btn active" data-filter="all" data-type="category">
-              Todas
+              All
             </button>
             {categories.map((category) => (
               <button class="filter-btn" data-filter={category} data-type="category">
@@ -84,7 +84,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
       </div>
 
       <div id="no-results" class="no-results" style="display: none;">
-        <p>No se encontraron artículos con los filtros seleccionados.</p>
+        <p>No articles found with the selected filters.</p>
       </div>
     </div>
   </section>
