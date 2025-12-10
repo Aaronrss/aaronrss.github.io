@@ -1,0 +1,106 @@
+AARON AXHEL ROSAS REYES
+Software Engineer | Backend & Cloud | Developer Advocate Focus
+Mexico City, Mexico
+Email: aaronrosas@proton.me
+Phone: +52 55 1900 4551
+LinkedIn: https://www.linkedin.com/in/aaronrosas/
+
+PROFESSIONAL SUMMARY
+Software Engineer with a B.S. in Computer Science and Technology and three years of experience supporting, refactoring, and developing highly regulated, mission-critical backend systems. His approach blends product-focused engineering with Cloud, DevOps, and Application Delivery practices, driving resilience, automation, and secure, observable platforms through CI/CD pipelines, container orchestration, and modern monitoring solutions.
+
+Worked at JPMorgan Chase & Co. (JPMC), where one of his major achievements was upgrading and refactoring backend services using Java and Spring Boot, managing integrations involving containers and cloud-based services to align economic calculations and reduce cognitive complexity. He also redesigned and automated regulatory ETL pipelines with Pentaho, improving data accuracy, release traceability, and timeliness to proactively prevent regulatory fines and enhance operational efficiency.
+
+In addition to his engineering experience, he is passionate about sharing technical knowledge and simplifying complex cloud, backend, and distributed systems concepts. He creates clear and practical technical content, including internal documentation, troubleshooting guides, reproducible examples, and architecture explanations, and enjoys teaching, mentoring, and presenting technical ideas in accessible ways. He thrives in roles that combine deep engineering work with developer enablement, communication, and content creation.
+
+Key strengths include:
+    • Support, maintenance, and modernization of highly regulated and mission-critical backend systems.
+    • Refactoring, support, and impactful design of ETL pipelines with compliance and delivery governance in mind.
+    • Active use of CI/CD automation, secure credential/certificate management and multi-cluster deployment of containerized applications to Kubernetes.
+    • Comprehensive debugging, release validation, and post-deployment monitoring using logs, database tracing, and observability platforms (Splunk, Grafana, Prometheus, Kubernetes).
+    • Collaboration with DevOps and infrastructure teams to ensure stable, auditable, and compliant software delivery.
+    • Ability to translate complex distributed systems, cloud architectures, and debugging workflows into accessible explanations for diverse audiences, from junior developers to cross-functional stakeholders.
+    • Experience producing internal technical documentation, operational runbooks, and reproducible technical examples that function as educational material for engineering teams.
+
+He is known for structured thinking, technical ownership, clear communication, and adaptability. He enjoys optimizing workflows, collaborating across teams, embracing each challenge as an opportunity to learn, and is passionate about building systems that scale cleanly and perform reliably, ensuring seamless application delivery from well-tested code to monitoring, automated deployments, and regulatory compliance.
+
+TECHNICAL SKILLS
+Core Programming Languages (Professional): Java, Python, Bash, SQL, PL/SQL
+Backend & Cloud-Native Engineering: Spring Boot, Hibernate, REST APIs, Microservices, Flask, Django, Pentaho (ETL)
+Cloud & DevOps: Docker, Kubernetes, AWS, Jenkins, Git, CI/CD pipelines, Linux
+Monitoring & Observability: Splunk, Grafana, Prometheus
+Databases: Oracle, Sybase, MySQL, PostgreSQL, MongoDB
+Testing & Code Quality: JUnit, Mockito, SonarQube
+Frontend & UI (Working Knowledge): HTML5, CSS3, JavaScript, React, Bootstrap, Sass, Less
+Infrastructure & Networking: Linux, Illumio, Packet Tracer, ServiceNow
+
+ADDITIONAL TECHNICAL EXPOSURE
+Racket, Prolog, Elixir, Swift, C, C++, R, MATLAB, NVM, NPM, Figma, InVision Studio
+
+CONTENT & COMMUNICATION
+Technical writing, developer documentation, demos, reproducible examples, architectural explanation, internal workshops, mentoring, knowledge-sharing.
+
+PROFESSIONAL EXPERIENCE
+Company: JPMorgan Chase & Co.
+Location: Mexico City, Mexico
+Title: Software Engineer II – Application Delivery (L2/L3 Support & Development)
+Dates: Feb 2025 – Jul 2025
+Supported, maintained, and modernized backend services for accounting and post-trade transaction processing across LATAM markets within the Application Delivery organization. Combined L2/L3 production support with secure and compliant system maintenance throughout the full software delivery life-cycle in a highly regulated environment.
+    • Maintained and integrated Java/Spring Boot services on Kubernetes-based platforms as part of the Repo Harmonization initiative, enabling Back Office system to process UGM/UVM message formats from Front Office application. Validated and persisted valuation data to ensure consistency across Front- and Back-Office operations, removing redundant economic calculations and improving accuracy in post-trade reporting.
+    • Led the renewal and rotation of digital certificates and credentials used for Post-Trade System communication with SPEI, SPT, and an international risk platform, coordinating deployments, validating secure message exchange, and ensuring uninterrupted operations and compliance with financial security standards, preventing downtime across multi-region post-trade integrations.
+    • Ensured post-deployment validation for automated release pipelines using Jules and Bitbucket, verifying service integrity and inter-system connectivity after certificate renewals and environment updates.
+    • Applied Test-Driven Development (TDD) with JUnit and Mockito, and enforced internal security and code-quality standards through SonarQube, contributing to secure software delivery in regulated contexts.
+    • Collaborated with DevOps and infrastructure teams to maintain auditable and reliable production environments, aligning operational changes with compliance and governance policies.
+    • Monitored services and investigated production incidents using Splunk, performing root-cause analysis and implementing configuration or code fixes to improve resilience and observability.
+    • Created internal documentation, architecture notes, and troubleshooting guides that helped developers understand system behavior, Kubernetes deployments, certificate workflows, and integration patterns.
+    • Delivered knowledge-sharing sessions and walkthroughs to support teams and new engineers, simplifying complex post-trade workflows and distributed debugging processes.
+
+Company: JPMorgan Chase & Co.
+Title: Software Engineer I – Application Delivery (Regulatory Systems)
+Dates: Mar 2023 – Jan 2025
+Operated within the Application Delivery organization, automating regulatory workflows and integrating financial systems to enhance operational traceability, auditability, and compliance across post-trade processes. Combined L2 and L3 responsibilities, from incident resolution and release validation to code-level improvements, to ensure reliable and compliant system delivery.
+    • Designed and implemented automated Pentaho ETL pipelines to capture and track time-sensitive transaction data, reducing manual intervention and strengthening regulatory accuracy.
+    • Developed and optimized SQL queries to trace the life-cycle of financial operations across interconnected systems, improving data consistency and reconciliation efficiency.
+    • Executed controlled deployments from DEV/UAT to PROD under strict change-management governance, ensuring delivery stability and full audit traceability.
+    • Provided L2/L3 application delivery support, diagnosing production incidents, coordinating with cross-functional teams, and implementing permanent fixes to prevent recurrence.
+    • Partnered with compliance and business stakeholders to align system outputs with internal audit and external reporting standards.
+    • Developed clear technical documentation for ETL pipelines, SQL tracing methodologies, and regulatory workflows, improving on boarding and understanding for engineering and audit teams.
+    • Presented findings and technical explanations to cross-functional stakeholders, translating complex backend issues into accessible insights for decision-making.
+
+Company: JPMorgan Chase & Co.
+Title: Development Intern – Application Delivery & Data Integration
+Dates: May 2022 – Feb 2023
+Joined the Application Delivery function supporting regulatory and data integration systems. Contributed to both engineering and release operations with focus on maintainability, reliability, and compliance.
+    • Led the migration of a Sybase database (≈50 active tables, +3M rows of regulatory data) to Oracle, designing and executing the process end-to-end, from DDL/DML script generation to data validation, as part of JPMC’s modernization and compliance roadmap with Mexican financial regulations requiring up to 10 years of historical records.
+    • Developed a custom SED automation script to adapt legacy INSERT statements for Oracle compatibility, significantly reducing manual intervention during migration.
+    • Refactored and re-tested 30+ Pentaho ETL jobs dependent on Sybase-specific syntax, ensuring compatibility and operational continuity across reporting, post-trade, reconciliation, valuation, cash, and tax systems.
+    • Coordinated with DBAs, Production Support, and business units (Payments, Cash, Operations, Finance, Taxes) to validate data integrity and ensure successful transition across interconnected systems.
+    • Improved maintainability and observability of ETL pipelines by enhancing job documentation and assisting with environment-level deployments and data validation tests.
+    • Produced migration guides and reproducible examples that documented each stage of the Sybase-to-Oracle transition, enabling smoother onboarding and easier collaboration across teams. 
+
+EDUCATION
+Bachelor’s in Computer Science and Technology
+Instituto Tecnológico y de Estudios Superiores de Monterrey (ITESM)
+Mexico City, Mexico – 2023
+GPA: 87/100
+
+CERTIFICATIONS
+AWS Certified Cloud Practitioner – Amazon Web Services (AWS) – 2023
+
+COURSES
+Microservices Architectures – Vanderbilt University – 2025
+Building HTTP APIs with Spring – Vanderbilt University – 2025
+Bloomberg Market Concepts – Bloomberg – 2023
+Python Basics – University of Michigan – 2022
+Design and Develop a Website using Figma and CSS – Coursera – 2022
+Blockchain Basics – University at Buffalo and The State University of New York – 2022
+Diseñando páginas web con Bootstrap 4 – Universidad Austral – 2022
+Introduction to Cybersecurity Tools & Cyber Attacks – Coursera – 2021
+RESTful API with HTTP and JavaScirpt – Coursera – 2021
+CCNA: Enterprise Networking, Security, and Automation – Cisco – 2021
+CCNA: Switching, Routing, and Wireless Essentials – Cisco – 2021
+CCNA: Introduction to Networks – Cisco – 2021
+Cloud Computing Core – EdX – 2021
+Build Your Portfolio Website with HTML and CSS – Coursera – 2020
+
+LANGUAGES
+English (Fluent), Spanish (Native)
