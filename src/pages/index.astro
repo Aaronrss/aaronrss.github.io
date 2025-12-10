@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/Hero.astro';
-import Card from '@/components/Card.astro';
-import SectionHeader from '@/components/SectionHeader.astro';
-import { getCollection } from 'astro:content';
+import Card from "@/components/Card.astro";
+import Hero from "@/components/Hero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const allProjects = await getCollection('portfolio');
+const allProjects = await getCollection("portfolio");
 const featuredProjects = allProjects
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
@@ -19,36 +19,38 @@ const featuredProjects = allProjects
 
 <BaseLayout title="Portfolio | Desarrollador Web">
   <Hero
-    subtitle="Bienvenido a mi portfolio"
-    title="Creando experiencias digitales excepcionales"
-    description="Soy un desarrollador apasionado por construir aplicaciones web modernas, escalables y con un diseño elegante. Explora mi trabajo y descubre cómo puedo ayudarte con tu próximo proyecto."
+    title="Hello, my name is Aaron Rosas"
+    subtitle="Welcome to my portfolio"
+    description="Software Engineer based in CDMX, México."
     showCTA={true}
-    ctaText="Ver Portfolio"
+    ctaText="View Portfolio"
     ctaLink="/portfolio"
-    secondaryCTA="Leer Blog"
+    secondaryCTA="Read Blog"
     secondaryCTALink="/blog"
   />
 
   <section class="section">
     <div class="container">
       <SectionHeader
-        title="Últimos Artículos"
-        subtitle="Pensamientos, tutoriales y aprendizajes sobre desarrollo web"
+        title="Last Articles"
+        subtitle="Thoughts, tutorials, and learnings about web development"
       />
-      
+
       <div class="cards-grid">
-        {recentPosts.map((post) => (
-          <Card
-            title={post.data.title}
-            description={post.data.description}
-            href={`/blog/${post.slug}`}
-            image={post.data.image}
-            date={post.data.pubDate}
-            category={post.data.category}
-            tags={post.data.tags}
-            type="blog"
-          />
-        ))}
+        {
+          recentPosts.map((post) => (
+            <Card
+              title={post.data.title}
+              description={post.data.description}
+              href={`/blog/${post.slug}`}
+              image={post.data.image}
+              date={post.data.pubDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              type="blog"
+            />
+          ))
+        }
       </div>
 
       <div class="section-cta">
@@ -60,26 +62,30 @@ const featuredProjects = allProjects
   <section class="section section-alt">
     <div class="container">
       <SectionHeader
-        title="Proyectos Destacados"
-        subtitle="Una selección de mis trabajos más recientes"
+        title="Featured Projects"
+        subtitle="A selection of my most recent work"
       />
-      
+
       <div class="cards-grid">
-        {featuredProjects.map((project) => (
-          <Card
-            title={project.data.title}
-            description={project.data.description}
-            image={project.data.image}
-            technologies={project.data.technologies}
-            github={project.data.github}
-            demo={project.data.demo}
-            type="portfolio"
-          />
-        ))}
+        {
+          featuredProjects.map((project) => (
+            <Card
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              technologies={project.data.technologies}
+              github={project.data.github}
+              demo={project.data.demo}
+              type="portfolio"
+            />
+          ))
+        }
       </div>
 
       <div class="section-cta">
-        <a href="/portfolio" class="btn btn-secondary">Ver todos los proyectos</a>
+        <a href="/portfolio" class="btn btn-secondary"
+          >Ver todos los proyectos</a
+        >
       </div>
     </div>
   </section>

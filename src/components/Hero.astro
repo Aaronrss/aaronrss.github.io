@@ -15,25 +15,31 @@ const {
   subtitle,
   description,
   showCTA = false,
-  ctaText = 'Ver Portfolio',
-  ctaLink = '/portfolio',
-  secondaryCTA = 'Leer Blog',
-  secondaryCTALink = '/blog'
+  ctaText = "Ver Portfolio",
+  ctaLink = "/portfolio",
+  secondaryCTA = "Leer Blog",
+  secondaryCTALink = "/blog",
 } = Astro.props;
 ---
 
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      {subtitle && <p class="hero-subtitle">{subtitle}</p>}
       <h1 class="hero-title">{title}</h1>
+      {subtitle && <p class="hero-subtitle">{subtitle}</p>}
       {description && <p class="hero-description">{description}</p>}
-      {showCTA && (
-        <div class="hero-actions">
-          <a href={ctaLink} class="btn btn-primary">{ctaText}</a>
-          <a href={secondaryCTALink} class="btn btn-secondary">{secondaryCTA}</a>
-        </div>
-      )}
+      {
+        showCTA && (
+          <div class="hero-actions">
+            <a href={ctaLink} class="btn btn-primary">
+              {ctaText}
+            </a>
+            <a href={secondaryCTALink} class="btn btn-secondary">
+              {secondaryCTA}
+            </a>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
@@ -71,7 +77,11 @@ const {
     line-height: 1.1;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--color-primary-500) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--text-primary) 0%,
+      var(--color-primary-500) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

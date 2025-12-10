@@ -1,22 +1,22 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
   currentPath?: string;
 }
 
-const { currentPath = '' } = Astro.props;
+const { currentPath = "" } = Astro.props;
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/about', label: 'About' },
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/about", label: "About" },
 ];
 
 function isActive(href: string): boolean {
-  if (href === '/') {
-    return currentPath === '/' || currentPath === '';
+  if (href === "/") {
+    return currentPath === "/" || currentPath === "";
   }
   return currentPath.startsWith(href);
 }
@@ -25,16 +25,42 @@ function isActive(href: string): boolean {
 <header class="header">
   <nav class="nav container">
     <a href="/" class="logo">
-      <span class="logo-text">Portfolio</span>
+      <span class="logo-text">Aaron Rosas</span>
     </a>
-    
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-      <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+    <button
+      class="mobile-menu-btn"
+      id="mobile-menu-btn"
+      aria-label="Toggle menu"
+    >
+      <svg
+        class="menu-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <line x1="4" x2="20" y1="12" y2="12"></line>
         <line x1="4" x2="20" y1="6" y2="6"></line>
         <line x1="4" x2="20" y1="18" y2="18"></line>
       </svg>
-      <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        class="close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <path d="M18 6 6 18"></path>
         <path d="m6 6 12 12"></path>
       </svg>
@@ -42,16 +68,18 @@ function isActive(href: string): boolean {
 
     <div class="nav-links" id="nav-links">
       <ul class="nav-list">
-        {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class:list={['nav-link', { active: isActive(link.href) }]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={["nav-link", { active: isActive(link.href) }]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
       <ThemeToggle />
     </div>
@@ -91,7 +119,11 @@ function isActive(href: string): boolean {
   }
 
   .logo-text {
-    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-500),
+      var(--color-accent-500)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -199,18 +231,18 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const navLinks = document.getElementById('nav-links');
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const navLinks = document.getElementById("nav-links");
 
-  menuBtn?.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    navLinks?.classList.toggle('open');
+  menuBtn?.addEventListener("click", () => {
+    menuBtn.classList.toggle("open");
+    navLinks?.classList.toggle("open");
   });
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      menuBtn?.classList.remove('open');
-      navLinks?.classList.remove('open');
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuBtn?.classList.remove("open");
+      navLinks?.classList.remove("open");
     });
   });
 </script>
