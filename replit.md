@@ -43,10 +43,17 @@ src/
 - CSS custom properties for theming (defined in `global.css`)
 - Smooth transitions between themes
 
+### SEO & Performance
+- Automatic sitemap generation with `@astrojs/sitemap`
+- RSS feed at `/rss.xml`
+- robots.txt for search engine crawlers
+- View Transitions for smooth page navigation
+
 ### Content Management
 - Blog posts: MDX files in `src/content/blog/`
 - Portfolio projects: JSON files in `src/content/portfolio/`
 - Content schemas defined in `src/content/config.ts`
+- Real-time search filtering on blog page
 
 ### Responsive Design
 - Mobile-first approach
@@ -103,4 +110,7 @@ Create a new `.json` file in `src/content/portfolio/`:
 - Requirements: Responsive, dark/light toggle, reusable components
 
 ## Recent Changes
+- December 2024: Added SEO improvements (sitemap, robots.txt, RSS feed)
+- December 2024: Implemented View Transitions for smooth navigation
+- December 2024: Added real-time search functionality to blog page
 - December 2024: Initial project setup with Astro, Tailwind CSS, and MDX
