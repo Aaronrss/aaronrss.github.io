@@ -142,18 +142,26 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  const menuBtn = document.getElementById("mobile-menu-btn");
-  const navLinks = document.getElementById("nav-links");
+  function initMobileMenu() {
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const navLinks = document.getElementById("nav-links");
 
-  menuBtn?.addEventListener("click", () => {
-    menuBtn.classList.toggle("open");
-    navLinks?.classList.toggle("open");
-  });
+    if (!menuBtn || !navLinks) return;
 
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
-      menuBtn?.classList.remove("open");
-      navLinks?.classList.remove("open");
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("open");
+      navLinks.classList.toggle("open");
     });
-  });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuBtn.classList.remove("open");
+        navLinks.classList.remove("open");
+      });
+    });
+  }
+
+  initMobileMenu();
+
+  document.addEventListener("astro:after-swap", initMobileMenu);
 </script>
