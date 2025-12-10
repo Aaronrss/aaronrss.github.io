@@ -110,6 +110,8 @@ Create a new `.json` file in `src/content/portfolio/`:
 - Requirements: Responsive, dark/light toggle, reusable components
 
 ## Recent Changes
+- December 2024: Added Contact page with Formspree integration
+- December 2024: Integrated Google Analytics 4 (component-based)
 - December 2024: Added SEO improvements (sitemap, robots.txt, RSS feed)
 - December 2024: Implemented View Transitions for smooth navigation
 - December 2024: Added real-time search functionality to blog page
