@@ -1,11 +1,13 @@
 ---
 const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+if (!GA_MEASUREMENT_ID) {
+  console.warn("Google Analytics is disabled — PUBLIC_GA_MEASUREMENT_ID is missing.");
+}
 ---
 
 {GA_MEASUREMENT_ID && (
   <>
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WT3SXHD497"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
