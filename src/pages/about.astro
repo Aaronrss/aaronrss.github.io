@@ -3,51 +3,52 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 
 const skills = {
-  frontend: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Astro', 'Tailwind CSS'],
-  backend: ['Node.js', 'Python', 'Express', 'FastAPI', 'PostgreSQL', 'MongoDB'],
-  tools: ['Git', 'Docker', 'AWS', 'Vercel', 'Figma', 'VS Code']
+  backend: ['Java', 'Spring Boot', 'Python', 'Flask', 'Django', 'SQL', 'REST APIs', 'Microservices'],
+  cloud: ['Docker', 'Kubernetes', 'AWS', 'Jenkins', 'CI/CD', 'Linux'],
+  monitoring: ['Splunk', 'Grafana', 'Prometheus'],
+  databases: ['Oracle', 'PostgreSQL', 'MySQL', 'MongoDB', 'Sybase']
 };
 
 const experience = [
   {
-    title: 'Senior Frontend Developer',
-    company: 'Tech Company',
-    period: '2022 - Presente',
-    description: 'Desarrollo de aplicaciones web escalables utilizando React y TypeScript. Liderazgo de equipo de 5 desarrolladores.'
+    title: 'Software Engineer II – Application Delivery',
+    company: 'JPMorgan Chase & Co.',
+    period: 'Feb 2025 – Jul 2025',
+    description: 'Supported and modernized backend services for accounting and post-trade transaction processing across LATAM markets. Maintained Java/Spring Boot services on Kubernetes, led certificate renewal operations, and ensured compliance with financial security standards.'
   },
   {
-    title: 'Full Stack Developer',
-    company: 'Startup Inc.',
-    period: '2020 - 2022',
-    description: 'Desarrollo full stack con Node.js y Vue.js. Implementación de CI/CD y mejoras de rendimiento.'
+    title: 'Software Engineer I – Application Delivery',
+    company: 'JPMorgan Chase & Co.',
+    period: 'Mar 2023 – Jan 2025',
+    description: 'Automated regulatory workflows using Pentaho ETL pipelines. Developed SQL queries for transaction lifecycle tracing, executed controlled deployments, and provided L2/L3 application support.'
   },
   {
-    title: 'Junior Developer',
-    company: 'Digital Agency',
-    period: '2018 - 2020',
-    description: 'Desarrollo de sitios web responsivos y mantenimiento de aplicaciones existentes.'
+    title: 'Development Intern – Application Delivery',
+    company: 'JPMorgan Chase & Co.',
+    period: 'May 2022 – Feb 2023',
+    description: 'Led migration of Sybase database (~50 tables, +3M rows) to Oracle. Refactored 30+ Pentaho ETL jobs and developed automation scripts for legacy system compatibility.'
   }
 ];
 
 const education = [
   {
-    degree: 'Ingeniería en Sistemas Computacionales',
-    institution: 'Universidad Tecnológica',
-    period: '2014 - 2018'
+    degree: 'B.S. in Computer Science and Technology',
+    institution: 'Instituto Tecnológico y de Estudios Superiores de Monterrey (ITESM)',
+    period: '2019 – 2023'
   },
   {
-    degree: 'Certificación AWS Solutions Architect',
+    degree: 'AWS Certified Cloud Practitioner',
     institution: 'Amazon Web Services',
-    period: '2021'
+    period: '2023'
   }
 ];
 ---
 
-<BaseLayout title="Sobre Mí | Portfolio" description="Conoce más sobre mi experiencia y habilidades como desarrollador">
+<BaseLayout title="About Me | Portfolio" description="Learn more about my experience and skills as a software engineer">
   <Hero
-    title="Sobre Mí"
-    subtitle="Desarrollador Web"
-    description="Apasionado por crear soluciones digitales innovadoras que marquen la diferencia."
+    title="About Me"
+    subtitle="Software Engineer"
+    description="Passionate about building reliable backend systems and sharing technical knowledge."
   />
 
   <section class="about-section">
@@ -56,25 +57,25 @@ const education = [
         <div class="about-main">
           <div class="about-intro">
             <div class="profile-image">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Profile" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Aaron Rosas" />
             </div>
             <div class="intro-content">
-              <h2>¡Hola! Soy Juan Pérez</h2>
+              <h2>Hi! I'm Aaron Rosas</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Con más de 6 años de experiencia en desarrollo web, me especializo en crear aplicaciones modernas y escalables.
+                Software Engineer with a B.S. in Computer Science and three years of experience supporting, refactoring, and developing highly regulated, mission-critical backend systems at JPMorgan Chase & Co.
               </p>
               <p>
-                Mi pasión es transformar ideas en productos digitales que ofrezcan experiencias excepcionales. Creo firmemente en el código limpio, las mejores prácticas y el aprendizaje continuo.
+                My approach blends product-focused engineering with Cloud, DevOps, and Application Delivery practices. I'm passionate about sharing technical knowledge and simplifying complex distributed systems concepts.
               </p>
               <div class="intro-actions">
-                <a href="mailto:hello@example.com" class="btn btn-primary">Contactar</a>
-                <a href="/portfolio" class="btn btn-secondary">Ver Proyectos</a>
+                <a href="mailto:aaronrosas@proton.me" class="btn btn-primary">Contact Me</a>
+                <a href="/portfolio" class="btn btn-secondary">View Projects</a>
               </div>
             </div>
           </div>
 
           <div class="experience-section">
-            <h3>Experiencia Profesional</h3>
+            <h3>Professional Experience</h3>
             <div class="timeline">
               {experience.map((job) => (
                 <div class="timeline-item">
@@ -93,7 +94,7 @@ const education = [
           </div>
 
           <div class="education-section">
-            <h3>Educación</h3>
+            <h3>Education & Certifications</h3>
             <div class="education-list">
               {education.map((edu) => (
                 <div class="education-item">
@@ -108,16 +109,7 @@ const education = [
 
         <aside class="about-sidebar">
           <div class="skills-card">
-            <h3>Frontend</h3>
-            <div class="skills-list">
-              {skills.frontend.map((skill) => (
-                <span class="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-
-          <div class="skills-card">
-            <h3>Backend</h3>
+            <h3>Backend & Cloud</h3>
             <div class="skills-list">
               {skills.backend.map((skill) => (
                 <span class="skill-tag">{skill}</span>
@@ -126,30 +118,48 @@ const education = [
           </div>
 
           <div class="skills-card">
-            <h3>Herramientas</h3>
+            <h3>Cloud & DevOps</h3>
             <div class="skills-list">
-              {skills.tools.map((skill) => (
+              {skills.cloud.map((skill) => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="skills-card">
+            <h3>Monitoring</h3>
+            <div class="skills-list">
+              {skills.monitoring.map((skill) => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="skills-card">
+            <h3>Databases</h3>
+            <div class="skills-list">
+              {skills.databases.map((skill) => (
                 <span class="skill-tag">{skill}</span>
               ))}
             </div>
           </div>
 
           <div class="contact-card">
-            <h3>Contacto</h3>
+            <h3>Contact</h3>
             <ul class="contact-list">
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 </svg>
-                <a href="mailto:hello@example.com">hello@example.com</a>
+                <a href="mailto:aaronrosas@proton.me">aaronrosas@proton.me</a>
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                   <path d="M9 18c-4.51 2-5-2-7-2"></path>
                 </svg>
-                <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+                <a href="https://github.com/aaronrss" target="_blank">github.com/aaronrss</a>
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +167,7 @@ const education = [
                   <rect width="4" height="12" x="2" y="9"></rect>
                   <circle cx="4" cy="4" r="2"></circle>
                 </svg>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">linkedin.com/in/yourusername</a>
+                <a href="https://linkedin.com/in/aaronrosas" target="_blank">linkedin.com/in/aaronrosas</a>
               </li>
             </ul>
           </div>
