@@ -1,0 +1,10 @@
+{
+  "title": "E-Commerce Platform",
+  "description": "Una plataforma de comercio electrónico completa con carrito de compras, pagos integrados y panel de administración. Diseñada para ofrecer una experiencia de usuario fluida y un backend robusto.",
+  "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+  "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "Tailwind CSS"],
+  "github": "https://github.com/yourusername/ecommerce",
+  "demo": "https://demo-ecommerce.com",
+  "featured": true,
+  "order": 1
+}

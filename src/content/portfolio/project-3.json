@@ -1,0 +1,10 @@
+{
+  "title": "Weather Dashboard",
+  "description": "Dashboard interactivo de clima con visualizaciones de datos en tiempo real, pronósticos extendidos y alertas personalizables.",
+  "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&q=80",
+  "technologies": ["React", "D3.js", "OpenWeather API", "Chart.js"],
+  "github": "https://github.com/yourusername/weather",
+  "demo": "https://demo-weather.com",
+  "featured": true,
+  "order": 3
+}

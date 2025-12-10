@@ -1,0 +1,50 @@
+---
+title: "Técnicas Modernas de CSS para 2024"
+description: "Explora las nuevas características de CSS que están revolucionando el diseño web."
+pubDate: 2024-10-28
+category: "CSS"
+tags: ["CSS", "Design", "Frontend"]
+image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&q=80"
+---
+
+## El Nuevo CSS
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. CSS ha evolucionado significativamente en los últimos años.
+
+## Container Queries
+
+Las container queries permiten estilos basados en el contenedor padre:
+
+```css
+.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: flex;
+  }
+}
+```
+
+## CSS Nesting
+
+El anidamiento nativo de CSS finalmente está aquí:
+
+```css
+.button {
+  background: blue;
+  
+  &:hover {
+    background: darkblue;
+  }
+  
+  & .icon {
+    margin-right: 0.5rem;
+  }
+}
+```
+
+## Conclusión
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.

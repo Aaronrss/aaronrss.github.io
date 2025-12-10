@@ -1,0 +1,265 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import Card from '@/components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categories = [...new Set(allPosts.map((post) => post.data.category))];
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+---
+
+<BaseLayout title="Blog | Portfolio" description="Artículos sobre desarrollo web, tutoriales y experiencias">
+  <Hero
+    title="Blog"
+    subtitle="Artículos y Tutoriales"
+    description="Comparto mis conocimientos, experiencias y aprendizajes sobre desarrollo web, programación y tecnología."
+  />
+
+  <section class="blog-section">
+    <div class="container">
+      <aside class="filters">
+        <div class="filter-group">
+          <h3 class="filter-title">Categorías</h3>
+          <div class="filter-list">
+            <button class="filter-btn active" data-filter="all" data-type="category">
+              Todas
+            </button>
+            {categories.map((category) => (
+              <button class="filter-btn" data-filter={category} data-type="category">
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3 class="filter-title">Tags</h3>
+          <div class="filter-tags">
+            {allTags.map((tag) => (
+              <button class="tag filter-tag" data-filter={tag} data-type="tag">
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+      <div class="posts-grid" id="posts-grid">
+        {sortedPosts.map((post) => (
+          <div 
+            class="post-item" 
+            data-category={post.data.category}
+            data-tags={post.data.tags.join(',')}
+          >
+            <Card
+              title={post.data.title}
+              description={post.data.description}
+              href={`/blog/${post.slug}`}
+              image={post.data.image}
+              date={post.data.pubDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              type="blog"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div id="no-results" class="no-results" style="display: none;">
+        <p>No se encontraron artículos con los filtros seleccionados.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-section {
+    padding: 4rem 0;
+  }
+
+  .blog-section .container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .filters {
+    position: sticky;
+    top: 5rem;
+  }
+
+  .filter-group {
+    margin-bottom: 2rem;
+  }
+
+  .filter-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  .filter-btn.active {
+    background-color: var(--color-primary-500);
+    color: white;
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-tag {
+    cursor: pointer;
+    border: none;
+  }
+
+  .filter-tag.active {
+    background-color: var(--color-primary-500);
+    color: white;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .post-item {
+    transition: opacity 0.3s ease;
+  }
+
+  .post-item.hidden {
+    display: none;
+  }
+
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-section .container {
+      grid-template-columns: 1fr;
+    }
+
+    .filters {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      width: auto;
+    }
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const filterTags = document.querySelectorAll('.filter-tag');
+  const postItems = document.querySelectorAll('.post-item');
+  const noResults = document.getElementById('no-results');
+
+  let activeCategory = 'all';
+  let activeTags: string[] = [];
+
+  function filterPosts() {
+    let visibleCount = 0;
+
+    postItems.forEach((item) => {
+      const postCategory = item.getAttribute('data-category');
+      const postTags = item.getAttribute('data-tags')?.split(',') || [];
+
+      const matchesCategory = activeCategory === 'all' || postCategory === activeCategory;
+      const matchesTags = activeTags.length === 0 || activeTags.some(tag => postTags.includes(tag));
+
+      if (matchesCategory && matchesTags) {
+        item.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.getAttribute('data-filter') || 'all';
+      filterPosts();
+    });
+  });
+
+  filterTags.forEach((tag) => {
+    tag.addEventListener('click', () => {
+      const tagValue = tag.getAttribute('data-filter') || '';
+      
+      if (tag.classList.contains('active')) {
+        tag.classList.remove('active');
+        activeTags = activeTags.filter(t => t !== tagValue);
+      } else {
+        tag.classList.add('active');
+        activeTags.push(tagValue);
+      }
+      
+      filterPosts();
+    });
+  });
+</script>

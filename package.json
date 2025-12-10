@@ -1,0 +1,20 @@
+{
+  "name": "professional-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Professional landing page with blog and portfolio",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 5000",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 5000",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.12",
+    "@iconify-json/lucide": "^1.2.79",
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.16.4",
+    "astro-icon": "^1.1.5",
+    "tailwindcss": "^4.1.17"
+  }
+}

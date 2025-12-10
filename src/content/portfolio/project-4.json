@@ -1,0 +1,9 @@
+{
+  "title": "Portfolio CMS",
+  "description": "Sistema de gestión de contenidos headless diseñado específicamente para portfolios creativos, con editor visual y API GraphQL.",
+  "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+  "technologies": ["Next.js", "GraphQL", "MongoDB", "AWS S3"],
+  "github": "https://github.com/yourusername/portfolio-cms",
+  "featured": false,
+  "order": 4
+}

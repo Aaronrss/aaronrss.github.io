@@ -1,0 +1,171 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import Card from '@/components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('portfolio');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+const allTechnologies = [...new Set(allProjects.flatMap((p) => p.data.technologies))];
+---
+
+<BaseLayout title="Portfolio | Proyectos" description="Explora mis proyectos de desarrollo web">
+  <Hero
+    title="Portfolio"
+    subtitle="Mis Proyectos"
+    description="Una colección de proyectos que demuestran mis habilidades en desarrollo web, diseño y resolución de problemas."
+  />
+
+  <section class="portfolio-section">
+    <div class="container">
+      <div class="tech-filters">
+        <span class="filter-label">Filtrar por tecnología:</span>
+        <div class="filter-tags">
+          <button class="tech-btn active" data-tech="all">Todas</button>
+          {allTechnologies.map((tech) => (
+            <button class="tech-btn" data-tech={tech}>{tech}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        {sortedProjects.map((project) => (
+          <div 
+            class="project-item"
+            data-technologies={project.data.technologies.join(',')}
+          >
+            <Card
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              technologies={project.data.technologies}
+              github={project.data.github}
+              demo={project.data.demo}
+              type="portfolio"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div id="no-results" class="no-results" style="display: none;">
+        <p>No se encontraron proyectos con la tecnología seleccionada.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .portfolio-section {
+    padding: 4rem 0;
+  }
+
+  .tech-filters {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tech-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  .tech-btn.active {
+    background-color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+    color: white;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .project-item {
+    transition: opacity 0.3s ease;
+  }
+
+  .project-item.hidden {
+    display: none;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tech-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const techBtns = document.querySelectorAll('.tech-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+  const noResults = document.getElementById('no-results');
+
+  techBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      techBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selectedTech = btn.getAttribute('data-tech');
+      let visibleCount = 0;
+
+      projectItems.forEach((item) => {
+        const technologies = item.getAttribute('data-technologies')?.split(',') || [];
+
+        if (selectedTech === 'all' || technologies.includes(selectedTech || '')) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,10 @@
+{
+  "title": "Task Management App",
+  "description": "Aplicación de gestión de tareas con funcionalidades de colaboración en tiempo real, tableros Kanban y seguimiento de tiempo integrado.",
+  "image": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
+  "technologies": ["Vue.js", "Firebase", "TypeScript", "Vuetify"],
+  "github": "https://github.com/yourusername/taskapp",
+  "demo": "https://demo-taskapp.com",
+  "featured": true,
+  "order": 2
+}
