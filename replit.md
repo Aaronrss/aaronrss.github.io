@@ -110,10 +110,11 @@ Create a new `.json` file in `src/content/portfolio/`:
 - Requirements: Responsive, dark/light toggle, reusable components
 
 ## CSS Architecture
-The project uses a **full Tailwind CSS** approach with minimal custom CSS:
-- `global.css`: Contains only theme variables (CSS custom properties) and base utility classes (`.btn`, `.tag`, `.card`, `.container`, `.input-field`, `.filter-btn`, `.prose`)
-- All components use Tailwind utility classes directly in the markup
+The project uses a **full Tailwind CSS v4** approach with minimal custom CSS:
+- `global.css`: Contains `@custom-variant dark` for class-based dark mode, theme variables, and base utility classes
+- All components use Tailwind utility classes directly in the markup including `dark:` variants
 - Theme variables defined in `:root` and `:root.dark` for light/dark mode support
+- Dark mode: Uses `@custom-variant dark (&:where(.dark, .dark *))` to enable Tailwind's `dark:` with `.dark` class on `<html>`
 - No duplicated styles - KISS principle applied
 
 ## Recent Changes
