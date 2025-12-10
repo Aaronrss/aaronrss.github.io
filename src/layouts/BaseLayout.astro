@@ -2,7 +2,7 @@
 import Navigation from '@/components/Navigation.astro';
 import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -39,7 +39,7 @@ const currentPath = Astro.url.pathname;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     
-    <ViewTransitions />
+    <ClientRouter />
     <Analytics />
     <title>{title}</title>
     
