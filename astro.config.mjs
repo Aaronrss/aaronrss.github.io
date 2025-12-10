@@ -15,7 +15,14 @@ export default defineConfig({
     server: {
       host: '0.0.0.0',
       port: 5000,
-      allowedHosts: true
+      allowedHosts: [
+        'localhost',
+        '127.0.0.1',
+        '0.0.0.0',
+
+        // HOST dinámico de Replit:
+        '211e9931-d664-40e8-84e1-6444686dbb62-00-2pc9h061y6dmq.worf.replit.dev'
+      ]
     }
   },
   markdown: {
