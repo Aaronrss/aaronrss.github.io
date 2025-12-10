@@ -105,11 +105,14 @@ Create a new `.json` file in `src/content/portfolio/`:
 ```
 
 ## User Preferences
-- Language: Spanish (ES)
+- Language: English (EN) - entire site localized
 - Style: Minimalist, modern, documentation-like
 - Requirements: Responsive, dark/light toggle, reusable components
 
 ## Recent Changes
+- December 2024: Complete English localization (all pages translated)
+- December 2024: Updated About page with real CV data (JPMorgan Chase experience, ITESM education, AWS certification)
+- December 2024: Updated contact information to aaronrosas@proton.me
 - December 2024: Added Contact page with Formspree integration
 - December 2024: Integrated Google Analytics 4 (component-based)
 - December 2024: Added SEO improvements (sitemap, robots.txt, RSS feed)
