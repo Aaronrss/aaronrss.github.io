@@ -109,7 +109,18 @@ Create a new `.json` file in `src/content/portfolio/`:
 - Style: Minimalist, modern, documentation-like
 - Requirements: Responsive, dark/light toggle, reusable components
 
+## CSS Architecture
+The project uses a **full Tailwind CSS** approach with minimal custom CSS:
+- `global.css`: Contains only theme variables (CSS custom properties) and base utility classes (`.btn`, `.tag`, `.card`, `.container`, `.input-field`, `.filter-btn`, `.prose`)
+- All components use Tailwind utility classes directly in the markup
+- Theme variables defined in `:root` and `:root.dark` for light/dark mode support
+- No duplicated styles - KISS principle applied
+
 ## Recent Changes
+- December 2024: **Major CSS refactorization** - Full migration to Tailwind utility classes
+  - Reduced codebase by ~2000+ lines by eliminating scoped CSS
+  - All 7 components now use Tailwind classes exclusively
+  - Streamlined global.css to only theme variables and essential base styles
 - December 2024: Complete English localization (all pages translated)
 - December 2024: Updated About page with real CV data (JPMorgan Chase experience, ITESM education, AWS certification)
 - December 2024: Updated contact information to aaronrosas@proton.me
