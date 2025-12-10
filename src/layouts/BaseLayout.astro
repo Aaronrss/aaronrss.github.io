@@ -1,6 +1,7 @@
 ---
 import Navigation from '@/components/Navigation.astro';
 import Footer from '@/components/Footer.astro';
+import Analytics from '@/components/Analytics.astro';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -39,6 +40,7 @@ const currentPath = Astro.url.pathname;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     
     <ViewTransitions />
+    <Analytics />
     <title>{title}</title>
     
     <script is:inline>
