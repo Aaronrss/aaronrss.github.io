@@ -3,21 +3,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 
 const socialLinks = [
-  {
-    name: 'GitHub',
-    url: 'https://github.com/aaronrss',
-    icon: 'github'
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/in/aaronrosas',
-    icon: 'linkedin'
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/rnrssr',
-    icon: 'twitter'
-  }
+  { name: 'GitHub', url: 'https://github.com/aaronrss', icon: 'github' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/aaronrosas', icon: 'linkedin' },
+  { name: 'Twitter', url: 'https://twitter.com/rnrssr', icon: 'twitter' }
 ];
 ---
 
@@ -28,19 +16,19 @@ const socialLinks = [
     description="Have a project in mind or just want to say hello? I'd love to hear from you."
   />
 
-  <section class="contact-section">
+  <section class="py-16">
     <div class="container">
-      <div class="contact-grid">
-        <div class="contact-form-wrapper">
-          <h2>Send me a message</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 items-start">
+        <div>
+          <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-8">Send me a message</h2>
           <form 
             id="contact-form"
             action="https://formspree.io/f/xldqpnzj" 
             method="POST"
-            class="contact-form"
+            class="flex flex-col gap-6"
           >
-            <div class="form-group">
-              <label for="name">Name</label>
+            <div class="flex flex-col gap-2">
+              <label for="name" class="text-sm font-medium text-[var(--text-primary)]">Name</label>
               <input 
                 type="text" 
                 id="name" 
@@ -48,11 +36,12 @@ const socialLinks = [
                 required 
                 placeholder="Your name"
                 autocomplete="name"
+                class="input-field"
               />
             </div>
 
-            <div class="form-group">
-              <label for="email">Email</label>
+            <div class="flex flex-col gap-2">
+              <label for="email" class="text-sm font-medium text-[var(--text-primary)]">Email</label>
               <input 
                 type="email" 
                 id="email" 
@@ -60,82 +49,90 @@ const socialLinks = [
                 required 
                 placeholder="your@email.com"
                 autocomplete="email"
+                class="input-field"
               />
             </div>
 
-            <div class="form-group">
-              <label for="subject">Subject</label>
+            <div class="flex flex-col gap-2">
+              <label for="subject" class="text-sm font-medium text-[var(--text-primary)]">Subject</label>
               <input 
                 type="text" 
                 id="subject" 
                 name="subject" 
                 required 
                 placeholder="How can I help you?"
+                class="input-field"
               />
             </div>
 
-            <div class="form-group">
-              <label for="message">Message</label>
+            <div class="flex flex-col gap-2">
+              <label for="message" class="text-sm font-medium text-[var(--text-primary)]">Message</label>
               <textarea 
                 id="message" 
                 name="message" 
                 rows="5" 
                 required 
                 placeholder="Tell me about your project..."
+                class="input-field resize-y min-h-[120px]"
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-submit">
+            <button type="submit" class="btn btn-primary self-start min-w-[180px]">
               <span class="btn-text">Send message</span>
-              <span class="btn-loading" style="display: none;">Sending...</span>
+              <span class="btn-loading hidden">Sending...</span>
             </button>
 
-            <div id="form-status" class="form-status"></div>
+            <div id="form-status" class="hidden p-4 rounded-lg text-sm"></div>
           </form>
         </div>
 
-        <aside class="contact-info">
-          <div class="info-card">
-            <h3>Contact Information</h3>
-            <p>I prefer email for professional inquiries. I usually respond within 24-48 hours.</p>
+        <aside class="lg:sticky lg:top-20 flex flex-col gap-6">
+          <div class="p-6 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+            <h3 class="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide mb-4">Contact Information</h3>
+            <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">I prefer email for professional inquiries. I usually respond within 24-48 hours.</p>
             
-            <div class="info-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="flex items-center gap-3 py-3 border-t border-[var(--border-color)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-primary-500)] flex-shrink-0">
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
-              <a href="mailto:aaronrosas@proton.me">aaronrosas@proton.me</a>
+              <a href="mailto:aaronrosas@proton.me" class="text-sm text-[var(--text-secondary)] no-underline hover:text-[var(--color-primary-500)] transition-colors">aaronrosas@proton.me</a>
             </div>
 
-            <div class="info-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="flex items-center gap-3 py-3 border-t border-[var(--border-color)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-primary-500)] flex-shrink-0">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <span>Mexico City, Mexico</span>
+              <span class="text-sm text-[var(--text-secondary)]">Mexico City, Mexico</span>
             </div>
           </div>
 
-          <div class="social-card">
-            <h3>Follow Me</h3>
-            <div class="social-links">
+          <div class="p-6 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
+            <h3 class="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide mb-4">Follow Me</h3>
+            <div class="flex flex-col gap-3">
               {socialLinks.map((link) => (
-                <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
+                <a 
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] text-sm font-medium text-[var(--text-secondary)] no-underline transition-all duration-200 hover:bg-[var(--color-primary-500)] hover:text-white"
+                >
                   {link.icon === 'github' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                       <path d="M9 18c-4.51 2-5-2-7-2"></path>
                     </svg>
                   )}
                   {link.icon === 'linkedin' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                       <rect width="4" height="12" x="2" y="9"></rect>
                       <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                   )}
                   {link.icon === 'twitter' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
                     </svg>
                   )}
@@ -145,12 +142,12 @@ const socialLinks = [
             </div>
           </div>
 
-          <div class="availability-card">
-            <div class="availability-status">
-              <span class="status-dot"></span>
-              <span>Available for projects</span>
+          <div class="p-6 rounded-2xl border border-[var(--border-color)] bg-gradient-to-br from-green-500/10 to-sky-500/10">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+              <span class="text-sm font-semibold text-[var(--text-primary)]">Available for projects</span>
             </div>
-            <p>Currently accepting new freelance projects and collaboration opportunities.</p>
+            <p class="text-sm text-[var(--text-secondary)] leading-relaxed">Currently accepting new freelance projects and collaboration opportunities.</p>
           </div>
         </aside>
       </div>
@@ -159,251 +156,18 @@ const socialLinks = [
 </BaseLayout>
 
 <style>
-  .contact-section {
-    padding: 4rem 0;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .contact-form-wrapper h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-group label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-
-  .form-group input,
-  .form-group textarea {
-    padding: 0.875rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.2s ease;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-primary-500);
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: var(--text-muted);
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-
-  .btn-submit {
-    align-self: flex-start;
-    min-width: 180px;
-  }
-
-  .form-status {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    display: none;
-  }
-
-  .form-status.success {
+  #form-status.success {
     display: block;
     background-color: rgba(34, 197, 94, 0.1);
     color: #22c55e;
     border: 1px solid rgba(34, 197, 94, 0.3);
   }
 
-  .form-status.error {
+  #form-status.error {
     display: block;
     background-color: rgba(239, 68, 68, 0.1);
     color: #ef4444;
     border: 1px solid rgba(239, 68, 68, 0.3);
-  }
-
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: sticky;
-    top: 5rem;
-  }
-
-  .info-card,
-  .social-card,
-  .availability-card {
-    padding: 1.5rem;
-    background-color: var(--bg-secondary);
-    border-radius: 1rem;
-    border: 1px solid var(--border-color);
-  }
-
-  .info-card h3,
-  .social-card h3 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-  }
-
-  .info-card p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 0;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .info-item:first-of-type {
-    border-top: none;
-  }
-
-  .info-item svg {
-    color: var(--color-primary-500);
-    flex-shrink: 0;
-  }
-
-  .info-item a,
-  .info-item span {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .info-item a:hover {
-    color: var(--color-primary-500);
-  }
-
-  .social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    background-color: var(--bg-tertiary);
-    border-radius: 0.5rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-
-  .social-link:hover {
-    background-color: var(--color-primary-500);
-    color: white;
-  }
-
-  .social-link svg {
-    flex-shrink: 0;
-  }
-
-  .availability-card {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(14, 165, 233, 0.1));
-  }
-
-  .availability-status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .status-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #22c55e;
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .availability-status span {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .availability-card p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  @media (max-width: 1024px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-info {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .info-card {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .contact-info {
-      grid-template-columns: 1fr;
-    }
-
-    .btn-submit {
-      width: 100%;
-    }
   }
 </style>
 
@@ -416,9 +180,9 @@ const socialLinks = [
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    btnText.style.display = 'none';
-    btnLoading.style.display = 'inline';
-    status.className = 'form-status';
+    btnText.classList.add('hidden');
+    btnLoading.classList.remove('hidden');
+    status.className = 'hidden p-4 rounded-lg text-sm';
     status.textContent = '';
 
     try {
@@ -426,24 +190,22 @@ const socialLinks = [
       const response = await fetch(form.action, {
         method: 'POST',
         body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { 'Accept': 'application/json' }
       });
 
       if (response.ok) {
-        status.className = 'form-status success';
+        status.className = 'p-4 rounded-lg text-sm success';
         status.textContent = 'Message sent! I will get back to you soon.';
         form.reset();
       } else {
         throw new Error('Error sending message');
       }
     } catch (error) {
-      status.className = 'form-status error';
+      status.className = 'p-4 rounded-lg text-sm error';
       status.textContent = 'Error sending message. Please try again.';
     } finally {
-      btnText.style.display = 'inline';
-      btnLoading.style.display = 'none';
+      btnText.classList.remove('hidden');
+      btnLoading.classList.add('hidden');
     }
   });
 </script>

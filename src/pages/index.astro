@@ -17,7 +17,7 @@ const featuredProjects = allProjects
   .slice(0, 3);
 ---
 
-<BaseLayout title="Portfolio | Desarrollador Web">
+<BaseLayout title="Portfolio | Web Developer">
   <Hero
     title="Hello, my name is Aaron Rosas"
     subtitle="Welcome to my portfolio"
@@ -29,14 +29,14 @@ const featuredProjects = allProjects
     secondaryCTALink="/blog"
   />
 
-  <section class="section">
+  <section class="py-20 md:py-12">
     <div class="container">
       <SectionHeader
         title="Last Articles"
         subtitle="Thoughts, tutorials, and learnings about web development"
       />
 
-      <div class="cards-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           recentPosts.map((post) => (
             <Card
@@ -53,20 +53,20 @@ const featuredProjects = allProjects
         }
       </div>
 
-      <div class="section-cta">
+      <div class="text-center mt-12">
         <a href="/blog" class="btn btn-secondary">View all articles</a>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt">
+  <section class="py-20 md:py-12 bg-[var(--bg-secondary)]">
     <div class="container">
       <SectionHeader
         title="Featured Projects"
         subtitle="A selection of my most recent work"
       />
 
-      <div class="cards-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           featuredProjects.map((project) => (
             <Card
@@ -82,48 +82,9 @@ const featuredProjects = allProjects
         }
       </div>
 
-      <div class="section-cta">
-        <a href="/portfolio" class="btn btn-secondary"
-          >View all projects</a
-        >
+      <div class="text-center mt-12">
+        <a href="/portfolio" class="btn btn-secondary">View all projects</a>
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .section {
-    padding: 5rem 0;
-  }
-
-  .section-alt {
-    background-color: var(--bg-secondary);
-  }
-
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .section-cta {
-    text-align: center;
-    margin-top: 3rem;
-  }
-
-  @media (max-width: 1024px) {
-    .cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .section {
-      padding: 3rem 0;
-    }
-
-    .cards-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

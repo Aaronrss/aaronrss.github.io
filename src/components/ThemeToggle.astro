@@ -4,11 +4,11 @@
 <button
   id="theme-toggle"
   type="button"
-  class="theme-toggle"
+  class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-primary)] border border-[var(--border-color)] cursor-pointer transition-all duration-200 hover:bg-[var(--border-color)] hover:scale-105"
   aria-label="Toggle dark mode"
 >
   <svg
-    class="sun-icon"
+    class="sun-icon block dark:hidden"
     xmlns="http://www.w3.org/2000/svg"
     width="20"
     height="20"
@@ -30,7 +30,7 @@
     <path d="m19.07 4.93-1.41 1.41"></path>
   </svg>
   <svg
-    class="moon-icon"
+    class="moon-icon hidden dark:block"
     xmlns="http://www.w3.org/2000/svg"
     width="20"
     height="20"
@@ -44,43 +44,6 @@
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
   </svg>
 </button>
-
-<style>
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 0.5rem;
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .theme-toggle:hover {
-    background-color: var(--border-color);
-    transform: scale(1.05);
-  }
-
-  .sun-icon {
-    display: block;
-  }
-
-  .moon-icon {
-    display: none;
-  }
-
-  :global(.dark) .sun-icon {
-    display: none;
-  }
-
-  :global(.dark) .moon-icon {
-    display: block;
-  }
-</style>
 
 <script>
   function initTheme() {

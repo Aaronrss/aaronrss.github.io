@@ -10,29 +10,29 @@ const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
 const allTechnologies = [...new Set(allProjects.flatMap((p) => p.data.technologies))];
 ---
 
-<BaseLayout title="Portfolio | Proyectos" description="Explora mis proyectos de desarrollo web">
+<BaseLayout title="Portfolio | Projects" description="Explore my web development projects">
   <Hero
     title="Portfolio"
-    subtitle="Mis Proyectos"
-    description="Una colección de proyectos que demuestran mis habilidades en desarrollo web, diseño y resolución de problemas."
+    subtitle="My Projects"
+    description="A collection of projects that demonstrate my skills in web development, design, and problem-solving."
   />
 
-  <section class="portfolio-section">
+  <section class="py-16">
     <div class="container">
-      <div class="tech-filters">
-        <span class="filter-label">Filtrar por tecnología:</span>
-        <div class="filter-tags">
-          <button class="tech-btn active" data-tech="all">Todas</button>
+      <div class="flex items-center gap-4 mb-12 flex-wrap">
+        <span class="font-medium text-[var(--text-secondary)]">Filter by technology:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn active" data-tech="all">All</button>
           {allTechnologies.map((tech) => (
-            <button class="tech-btn" data-tech={tech}>{tech}</button>
+            <button class="filter-btn" data-tech={tech}>{tech}</button>
           ))}
         </div>
       </div>
 
-      <div class="projects-grid" id="projects-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
         {sortedProjects.map((project) => (
           <div 
-            class="project-item"
+            class="project-item transition-opacity duration-300"
             data-technologies={project.data.technologies.join(',')}
           >
             <Card
@@ -48,99 +48,21 @@ const allTechnologies = [...new Set(allProjects.flatMap((p) => p.data.technologi
         ))}
       </div>
 
-      <div id="no-results" class="no-results" style="display: none;">
-        <p>No se encontraron proyectos con la tecnología seleccionada.</p>
+      <div id="no-results" class="hidden text-center py-12 text-[var(--text-secondary)]">
+        <p>No projects found with the selected technology.</p>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .portfolio-section {
-    padding: 4rem 0;
-  }
-
-  .tech-filters {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-
-  .filter-label {
-    font-weight: 500;
-    color: var(--text-secondary);
-  }
-
-  .filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tech-btn {
-    padding: 0.5rem 1rem;
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 9999px;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .tech-btn:hover {
-    background-color: var(--border-color);
-    color: var(--text-primary);
-  }
-
-  .tech-btn.active {
-    background-color: var(--color-primary-500);
-    border-color: var(--color-primary-500);
-    color: white;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .project-item {
-    transition: opacity 0.3s ease;
-  }
-
   .project-item.hidden {
     display: none;
-  }
-
-  .no-results {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-secondary);
-  }
-
-  @media (max-width: 1024px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .tech-filters {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
 
 <script>
-  const techBtns = document.querySelectorAll('.tech-btn');
+  const techBtns = document.querySelectorAll('.filter-btn');
   const projectItems = document.querySelectorAll('.project-item');
   const noResults = document.getElementById('no-results');
 
@@ -164,7 +86,7 @@ const allTechnologies = [...new Set(allProjects.flatMap((p) => p.data.technologi
       });
 
       if (noResults) {
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        noResults.classList.toggle('hidden', visibleCount > 0);
       }
     });
   });
