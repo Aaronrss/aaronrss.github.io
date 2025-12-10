@@ -24,14 +24,14 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="header">
-  <nav class="nav container">
-    <a href="/" class="logo">
-      <span class="logo-text">Aaron Rosas</span>
+<header class="sticky top-0 z-50 border-b border-[var(--border-color)] backdrop-blur-sm bg-white/90 dark:bg-slate-900/90">
+  <nav class="container flex items-center justify-between h-16">
+    <a href="/" class="flex items-center gap-2 no-underline font-bold text-xl">
+      <span class="bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-accent-500)] bg-clip-text text-transparent">Aaron Rosas</span>
     </a>
 
     <button
-      class="mobile-menu-btn"
+      class="mobile-menu-btn md:hidden flex items-center justify-center w-10 h-10 bg-transparent border-none text-[var(--text-primary)] cursor-pointer"
       id="mobile-menu-btn"
       aria-label="Toggle menu"
     >
@@ -52,7 +52,7 @@ function isActive(href: string): boolean {
         <line x1="4" x2="20" y1="18" y2="18"></line>
       </svg>
       <svg
-        class="close-icon"
+        class="close-icon hidden"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -68,14 +68,19 @@ function isActive(href: string): boolean {
       </svg>
     </button>
 
-    <div class="nav-links" id="nav-links">
-      <ul class="nav-list">
+    <div class="nav-links hidden md:flex items-center gap-8" id="nav-links">
+      <ul class="flex items-center gap-2 list-none m-0 p-0">
         {
           navLinks.map((link) => (
             <li>
               <a
                 href={link.href}
-                class:list={["nav-link", { active: isActive(link.href) }]}
+                class:list={[
+                  "block px-4 py-2 rounded-lg font-medium transition-all duration-200 no-underline",
+                  isActive(link.href) 
+                    ? "text-[var(--color-primary-500)] bg-[var(--bg-tertiary)]" 
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]"
+                ]}
               >
                 {link.label}
               </a>
@@ -89,99 +94,6 @@ function isActive(href: string): boolean {
 </header>
 
 <style>
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  :global(.dark) .header {
-    background-color: rgba(15, 23, 42, 0.9);
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 4rem;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--text-primary);
-  }
-
-  .logo-text {
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-500),
-      var(--color-accent-500)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .nav-list {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-link {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-
-  .nav-link:hover {
-    color: var(--text-primary);
-    background-color: var(--bg-tertiary);
-  }
-
-  .nav-link.active {
-    color: var(--color-primary-500);
-    background-color: var(--bg-tertiary);
-  }
-
-  .mobile-menu-btn {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-
-  .close-icon {
-    display: none;
-  }
-
   .mobile-menu-btn.open .menu-icon {
     display: none;
   }
@@ -191,10 +103,6 @@ function isActive(href: string): boolean {
   }
 
   @media (max-width: 768px) {
-    .mobile-menu-btn {
-      display: flex;
-    }
-
     .nav-links {
       position: fixed;
       top: 4rem;
@@ -211,19 +119,20 @@ function isActive(href: string): boolean {
     }
 
     .nav-links.open {
+      display: flex;
       transform: translateX(0);
     }
 
-    .nav-list {
+    .nav-links ul {
       flex-direction: column;
       width: 100%;
     }
 
-    .nav-list li {
+    .nav-links li {
       width: 100%;
     }
 
-    .nav-link {
+    .nav-links a {
       display: block;
       padding: 1rem;
       text-align: center;
@@ -241,7 +150,7 @@ function isActive(href: string): boolean {
     navLinks?.classList.toggle("open");
   });
 
-  document.querySelectorAll(".nav-link").forEach((link) => {
+  document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("click", () => {
       menuBtn?.classList.remove("open");
       navLinks?.classList.remove("open");
