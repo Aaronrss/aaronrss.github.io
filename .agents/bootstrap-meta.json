@@ -1,0 +1,10 @@
+{
+  "profile": "dev-service",
+  "sets": [
+    "base",
+    "eng-quality",
+    "frontend"
+  ],
+  "lab": "agent-bootstraps",
+  "version": "0.1.0"
+}
