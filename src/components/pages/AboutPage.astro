@@ -41,14 +41,14 @@ const skillGroups = [
 ] as const;
 ---
 
-<BaseLayout title={copy.pageTitle} description={copy.description} lang={lang} image="/images/profile.jpg">
+<BaseLayout title={copy.pageTitle} description={copy.description} lang={lang} image="/images/avatar-v1.webp">
   <Hero title={copy.title} subtitle={copy.subtitle} description={copy.description} />
 
   <section class="py-16">
     <div class="container grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px] lg:items-start">
       <div>
         <div class="mb-16 grid gap-8 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-7 md:grid-cols-[190px_1fr] md:p-9">
-          <img src="/images/profile.jpg" alt="Aaron Rosas" width="800" height="800" loading="lazy" class="mx-auto aspect-square w-44 rounded-2xl object-cover md:mx-0" />
+          <img src="/images/avatar-v1.webp" alt={isEs ? 'Avatar ilustrado de Aaron Rosas' : 'Illustrated avatar of Aaron Rosas'} width="800" height="800" loading="lazy" class="mx-auto aspect-square w-44 rounded-2xl object-cover md:mx-0" />
           <div>
             <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">{copy.hello}</h2>
             <p class="mt-4 leading-relaxed text-[var(--text-secondary)]">{copy.intro}</p>

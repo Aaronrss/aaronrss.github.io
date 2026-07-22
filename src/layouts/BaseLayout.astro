@@ -4,6 +4,7 @@ import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
 import { alternateLanguagePath, type Language } from '@/i18n';
+import { profile, text } from '@/data/profile';
 import '../styles/global.css';
 
 interface Props {
@@ -21,8 +22,24 @@ const {
 } = Astro.props;
 const currentPath = Astro.url.pathname;
 const alternatePath = alternateLanguagePath(currentPath, lang);
-const canonicalUrl = Astro.site ? new URL(currentPath, Astro.site) : undefined;
-const alternateUrl = Astro.site ? new URL(alternatePath, Astro.site) : undefined;
+const hasTranslatedPage = !(lang === 'en' && currentPath.startsWith('/blog/'));
+const withTrailingSlash = (path: string) => path.endsWith('/') ? path : `${path}/`;
+const canonicalUrl = Astro.site ? new URL(withTrailingSlash(currentPath), Astro.site) : undefined;
+const alternateUrl = Astro.site ? new URL(withTrailingSlash(alternatePath), Astro.site) : undefined;
+const socialImage = Astro.site
+  ? new URL(image ?? '/images/avatar-v1.webp', Astro.site)
+  : image ?? '/images/avatar-v1.webp';
+const englishUrl = lang === 'en' ? canonicalUrl : alternateUrl;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  url: Astro.site?.toString(),
+  image: socialImage.toString(),
+  jobTitle: text(profile.role, lang),
+  address: { '@type': 'PostalAddress', addressLocality: text(profile.location, lang) },
+  sameAs: [profile.links.github, profile.links.linkedin, profile.links.soundcloud],
+};
 ---
 
 <!DOCTYPE html>
@@ -32,23 +49,28 @@ const alternateUrl = Astro.site ? new URL(alternatePath, Astro.site) : undefined
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    {image && <meta property="og:image" content={image} />}
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Aaron Rosas" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={lang === 'es' ? 'Avatar ilustrado de Aaron Rosas' : 'Illustrated avatar of Aaron Rosas'} />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {image && <meta name="twitter:image" content={image} />}
+    <meta name="twitter:image" content={socialImage} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    {alternateUrl && (
+    {alternateUrl && hasTranslatedPage && (
       <link rel="alternate" hreflang={lang === 'en' ? 'es' : 'en'} href={alternateUrl} />
     )}
     {canonicalUrl && <link rel="alternate" hreflang={lang} href={canonicalUrl} />}
+    {englishUrl && <link rel="alternate" hreflang="x-default" href={englishUrl} />}
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="/rss.xml" />
@@ -59,6 +81,7 @@ const alternateUrl = Astro.site ? new URL(alternatePath, Astro.site) : undefined
     <ClientRouter />
     <Analytics />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     
     <script is:inline>
       (function() {

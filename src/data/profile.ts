@@ -6,7 +6,6 @@ export const profile = {
   name: "Aaron Rosas",
   location: { en: "Mexico City, Mexico", es: "Ciudad de México" },
   email: "aaronrosas@proton.me",
-  bookingEmail: "booking.aaronrosas@pm.me",
   links: {
     github: "https://github.com/aaronrss",
     linkedin: "https://www.linkedin.com/in/aaronrosas/",

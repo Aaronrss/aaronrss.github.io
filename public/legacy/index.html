@@ -1,32 +1,28 @@
+<!doctype html>
 <html lang="en">
   <head>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
-    </style>
-    <link rel="stylesheet" href="/legacy/css/styles.css" />
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aaron Rosas' Portal</title>
-
-    <!-- jQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script src="/legacy/js/menu.js"></script>
+    <meta name="description" content="The preserved original portfolio of Aaron Rosas: a Matrix-inspired personal portal built with HTML, CSS, and JavaScript." />
+    <meta name="theme-color" content="#050505" />
+    <link rel="icon" href="/legacy/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" />
+    <link rel="stylesheet" href="/legacy/css/styles.css?v=matrix-20260722" />
+    <title>Aaron Rosas' Portal — Legacy Site</title>
+    <script src="/legacy/js/menu.js?v=matrix-20260722" defer></script>
+    <script src="/legacy/js/index.js?v=matrix-20260722" defer></script>
   </head>
 
   <body>
-    <canvas id="Matrix"></canvas>
+    <canvas id="Matrix" aria-hidden="true"></canvas>
     <div class="wrapper">
-      <div id="back-button">
-        <a href="/" class="back-link">← Volver al nuevo sitio</a>
-      </div>
       <div class="container-card">
-        <div id="header">
-          <div class="logo">
+        <a href="/" class="back-link">← Return to the current site</a>
+
+        <header id="header">
+          <div class="logo" aria-hidden="true">
             <div id="contentForm">
               <div class="itemRotator a1"></div>
               <div class="itemRotator a2"></div>
@@ -35,83 +31,62 @@
             </div>
           </div>
           <h1>AARON ROSAS' PORTAL</h1>
-          <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
-          <ul class="main-menu">
-            <li><a class="active" href="#home">home</a></li>
-            <li><a href="#about">about</a></li>
-            <li><a href="#contact">contact</a></li>
-          </ul>
-
+          <nav aria-label="Legacy site navigation">
+            <ul class="main-menu">
+              <li><a href="#home">home</a></li>
+              <li><a href="#about">about</a></li>
+              <li><a href="#contact">contact</a></li>
+            </ul>
+          </nav>
           <hr />
-        </div>
-        <div id="container">
-          <div class="inner">
-            <div id="content">
-              <div id="home" class="content-region hide" style="display: block">
-                <div class="card">
+        </header>
 
-                    <h2>Home</h2>
-                    <p>Be welcome to my site</p>
-                </div>
-              </div>
-
-              <div id="about" class="content-region hide" style="display: none">
-                <div class="card">
-                  <h2>About me</h2>
-                  <p>
-                    Software Engineer passionate about backend development,
-                    cloud technologies, distributed systems, and developer
-                    experience.
-                  </p>
-
-                  <p>
-                    Graduated as a Computer Science Engineer at ITESM (ITESM
-                    Santa Fe). I enjoy designing systems that are clean,
-                    scalable, secure, and observable.
-                  </p>
-
-                  <p>
-                    I balance my technical side with creativity — I produce
-                    electronic music, DJ, explore fitness and wellness, and
-                    follow a vegan lifestyle.
-                  </p>
-
-                  <p>
-                    Currently building high-quality engineering projects while
-                    documenting everything to teach, inspire, and simplify
-                    complex topics for others.
-                  </p>
-                </div>
-              </div>
-
-              <div
-                id="contact"
-                class="content-region hide"
-                style="display: none"
-              >
-              <div class="card">
-
-                  <h3>Contact</h3>
-                  <p>
-                      Email:
-                      <a href="mailto:aaronrosas@pm.me">aaronrosas@pm.me</a>
-                    </p>
-                    <h3>Credentials and Portfolio</h3>
-                    <p>
-                        <a href="resume.html">My Resume</a> |
-                        <a href="https://github.com/aaronrss/">My GitHub</a>
-                    </p>
-                </div>
-              </div>
+        <main id="content" tabindex="-1">
+          <section id="home" class="content-region" aria-labelledby="home-title">
+            <div class="card">
+              <p class="system-label">ARCHIVE / ORIGINAL PORTFOLIO</p>
+              <h2 id="home-title">Home</h2>
+              <p>Welcome to my original personal site — preserved, maintained, and still evolving.</p>
             </div>
-          </div>
-        </div>
+          </section>
+
+          <section id="about" class="content-region" aria-labelledby="about-title" hidden>
+            <div class="card">
+              <h2 id="about-title">About me</h2>
+              <p>
+                I am a Software Engineer focused on backend development, cloud technologies,
+                distributed systems, and developer experience.
+              </p>
+              <p>
+                I graduated in Computer Science and Technology from Tecnológico de Monterrey.
+                I enjoy building systems that are understandable, reliable, secure, and observable.
+              </p>
+              <p>
+                I currently work in Application Delivery at Quanta. Outside software, I explore
+                electronic music as a DJ and producer in training.
+              </p>
+            </div>
+          </section>
+
+          <section id="contact" class="content-region" aria-labelledby="contact-title" hidden>
+            <div class="card">
+              <h2 id="contact-title">Contact</h2>
+              <p>Email: <a href="mailto:aaronrosas@proton.me">aaronrosas@proton.me</a></p>
+              <h3>Credentials and portfolio</h3>
+              <p>
+                <a href="resume.html">My resume</a>
+                <span aria-hidden="true"> · </span>
+                <a href="https://github.com/aaronrss/" rel="noopener noreferrer">GitHub</a>
+              </p>
+            </div>
+          </section>
+        </main>
+
         <footer>
           <hr />
-          <code>Copyright (c) 2025 Aaron Rosas</code>
+          <code>Preserved since 2025 · Aaron Rosas</code>
         </footer>
       </div>
     </div>
-    <script src="/legacy/js/index.js"></script>
   </body>
 </html>

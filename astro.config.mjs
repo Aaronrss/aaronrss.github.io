@@ -5,11 +5,13 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import { defineConfig } from 'astro/config';
 
+/** @type {import('vite').Plugin} */
 const legacyDevRedirect = {
   name: 'legacy-dev-redirect',
   configureServer(server) {
     server.middlewares.use((request, response, next) => {
-      if (request.url === '/legacy' || request.url === '/legacy/') {
+      const pathname = request.url?.split('?')[0];
+      if (pathname === '/legacy' || pathname === '/legacy/') {
         response.statusCode = 302;
         response.setHeader('Location', '/legacy/index.html');
         response.end();
@@ -34,10 +36,7 @@ export default defineConfig({
       allowedHosts: [
         'localhost',
         '127.0.0.1',
-        '0.0.0.0',
-
-        // HOST dinámico de Replit:
-        '211e9931-d664-40e8-84e1-6444686dbb62-00-2pc9h061y6dmq.worf.replit.dev'
+        '0.0.0.0'
       ]
     }
   },

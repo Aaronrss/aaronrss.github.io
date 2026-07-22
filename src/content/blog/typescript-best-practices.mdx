@@ -1,40 +1,52 @@
 ---
-title: "Mejores Prácticas de TypeScript en 2024"
-description: "Una guía completa sobre las mejores prácticas y patrones de diseño en TypeScript para proyectos profesionales."
+title: "TypeScript Practices That Keep Boundaries Honest"
+description: "Strict types, validated inputs, and small domain models that make invalid states harder to represent."
 pubDate: 2024-11-15
-category: "Desarrollo"
+updatedDate: 2026-07-22
+category: "Engineering"
 tags: ["TypeScript", "JavaScript", "Best Practices"]
-image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80"
 ---
 
-## Introducción a TypeScript
+## Treat external data as untrusted
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliquam nisl nunc vitae nisl.
+TypeScript checks code during development; it does not validate JSON returned by an API or values read from storage. Keep the boundary explicit: receive external values as `unknown`, validate their shape, then pass a trusted domain type into the application.
 
-## Tipado Estricto
-
-El tipado estricto es fundamental para mantener un código robusto:
-
-```typescript
+```ts
 interface User {
   id: number;
   name: string;
-  email: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'member';
 }
 
-function getUser(id: number): Promise<User> {
-  // Implementación
+function isUser(value: unknown): value is User {
+  if (typeof value !== 'object' || value === null) return false;
+  const candidate = value as Record<string, unknown>;
+  return typeof candidate.id === 'number'
+    && typeof candidate.name === 'string'
+    && (candidate.role === 'admin' || candidate.role === 'member');
 }
 ```
 
-## Patrones Recomendados
+The cast is contained inside the validator. Code after that boundary can use `User` without spreading assertions across the codebase.
 
-- Usar interfaces sobre types cuando sea posible
-- Evitar el uso de `any`
-- Implementar genéricos para código reutilizable
-- Utilizar utility types como `Partial`, `Pick`, `Omit`
+## Model states instead of combining booleans
 
-## Conclusión
+Several independent flags can describe impossible combinations such as loading and success at the same time. A discriminated union makes the valid states visible:
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+```ts
+type RequestState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; message: string };
+```
+
+Rendering code can now switch on one property, and exhaustive checks reveal missing cases when the model changes.
+
+## Keep inference, preserve constraints
+
+Use inference for local implementation details and explicit types at public boundaries. The `satisfies` operator is useful for configuration because it checks the contract without widening every literal value.
+
+Strict TypeScript is most valuable when it clarifies ownership: validate at system edges, model the domain directly, and avoid assertions that merely silence uncertainty.
+
+Further reading: [TypeScript narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) and [`satisfies`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html).

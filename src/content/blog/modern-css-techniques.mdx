@@ -1,50 +1,55 @@
 ---
-title: "Técnicas Modernas de CSS para 2024"
-description: "Explora las nuevas características de CSS que están revolucionando el diseño web."
+title: "Modern CSS Patterns That Reduce JavaScript"
+description: "Container queries, native nesting, and resilient layout patterns for components that adapt without runtime measurement."
 pubDate: 2024-10-28
+updatedDate: 2026-07-22
 category: "CSS"
 tags: ["CSS", "Design", "Frontend"]
-image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&q=80"
 ---
 
-## El Nuevo CSS
+## Design components around available space
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. CSS ha evolucionado significativamente en los últimos años.
-
-## Container Queries
-
-Las container queries permiten estilos basados en el contenedor padre:
+Viewport breakpoints answer a page-level question. Reusable components often need a different answer: how much space does this component have here? Container queries let the component respond to its own layout context instead of reading dimensions in JavaScript.
 
 ```css
 .card-container {
   container-type: inline-size;
 }
 
-@container (min-width: 400px) {
+@container (min-width: 32rem) {
   .card {
-    display: flex;
+    grid-template-columns: 10rem 1fr;
   }
 }
 ```
 
-## CSS Nesting
+This keeps layout rules close to the component and makes it safer to move between a sidebar, a grid, and a full-width section.
 
-El anidamiento nativo de CSS finalmente está aquí:
+## Use native nesting with restraint
+
+Native nesting can make states easier to scan when it stays shallow:
 
 ```css
 .button {
-  background: blue;
-  
+  background: var(--action-bg);
+
   &:hover {
-    background: darkblue;
+    background: var(--action-bg-hover);
   }
-  
-  & .icon {
-    margin-right: 0.5rem;
+
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
   }
 }
 ```
 
-## Conclusión
+If selectors become difficult to read without reconstructing their full path, flatten them. Nesting should reduce context switching, not hide specificity.
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+## Prefer resilient primitives
+
+Grid, flexbox, `minmax()`, `clamp()`, and logical properties cover many layouts that once depended on resize listeners. They are easier to test, respond to writing modes, and avoid layout reads during rendering.
+
+The practical rule is simple: use CSS for presentation and spatial adaptation; reserve JavaScript for behavior and state.
+
+Further reading: [MDN container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries) and [CSS nesting](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting/Using_CSS_nesting).

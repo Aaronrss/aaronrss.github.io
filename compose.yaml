@@ -2,6 +2,7 @@ services:
   web:
     build:
       context: .
+    command: npm run dev -- --ignore-lock
     ports:
       - "5000:5000"
     volumes:

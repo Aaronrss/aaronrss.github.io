@@ -13,17 +13,22 @@ const englishToSpanish: Record<string, string> = {
   "/contact": "/es/contact",
 };
 
+function normalizePath(path: string): string {
+  return path.length > 1 ? path.replace(/\/+$/, "") : "/";
+}
+
 export function localizePath(path: string, language: Language): string {
   if (language === "en") return path;
   return englishToSpanish[path] ?? `/es${path}`;
 }
 
 export function alternateLanguagePath(path: string, language: Language): string {
+  const normalizedPath = normalizePath(path);
+
   if (language === "es") {
-    const englishPath = path.replace(/^\/es(?=\/|$)/, "") || "/";
-    return englishPath === "/blog" ? "/blog" : englishPath;
+    return normalizedPath.replace(/^\/es(?=\/|$)/, "") || "/";
   }
 
-  if (path.startsWith("/blog/")) return "/es/blog";
-  return englishToSpanish[path] ?? "/es/";
+  if (normalizedPath.startsWith("/blog/")) return "/es/blog";
+  return englishToSpanish[normalizedPath] ?? "/es/";
 }

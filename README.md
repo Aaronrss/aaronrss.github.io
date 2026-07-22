@@ -20,6 +20,9 @@ that route redirects to `/legacy/index.html`; the original files remain in
 
 ## Development
 
+Use Node.js 22.12 or newer. The version expected by local tooling is declared
+in `.nvmrc`.
+
 ```bash
 npm ci
 npm run dev
@@ -54,6 +57,7 @@ define separate test or lint scripts.
 - `src/data/profile.ts`: approved public profile facts and translations.
 - `src/components/pages/`: shared bilingual page implementations.
 - `src/pages/`: thin English and Spanish route entry points.
+- `src/content.config.ts`: typed Astro content collections and loaders.
 - `src/content/blog/`: MDX articles.
 - `src/content/portfolio/`: published work and explicit project placeholders.
 - `public/legacy/`: preserved previous website.

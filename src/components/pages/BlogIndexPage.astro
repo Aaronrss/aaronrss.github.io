@@ -8,128 +8,53 @@ import { getCollection } from 'astro:content';
 interface Props { lang: Language; }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const categories = [...new Set(posts.map((post) => post.data.category))];
-const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const copy = isEs
   ? {
-      title: 'Blog', subtitle: 'Notas técnicas', description: 'Los artículos actuales están publicados en inglés. La navegación y el contexto del sitio están disponibles en ambos idiomas.',
-      search: 'Buscar', searchPlaceholder: 'Buscar artículos…', categories: 'Categorías', all: 'Todas', tags: 'Etiquetas', none: 'No hay artículos con estos filtros.', pageTitle: 'Blog | Aaron Rosas',
+      title: 'Blog',
+      subtitle: 'Notas técnicas',
+      description: 'Los artículos actuales están publicados en inglés. La navegación y el contexto del sitio están disponibles en ambos idiomas.',
+      index: 'Índice editorial',
+      count: `${posts.length} artículos publicados`,
+      pageTitle: 'Blog | Aaron Rosas',
     }
   : {
-      title: 'Blog', subtitle: 'Technical notes', description: 'Notes on web development, engineering practices, and the systems I am learning to build better.',
-      search: 'Search', searchPlaceholder: 'Search articles…', categories: 'Categories', all: 'All', tags: 'Tags', none: 'No articles match these filters.', pageTitle: 'Blog | Aaron Rosas',
+      title: 'Blog',
+      subtitle: 'Technical notes',
+      description: 'Notes on web development, engineering practices, and the systems I am learning to build better.',
+      index: 'Editorial index',
+      count: `${posts.length} published articles`,
+      pageTitle: 'Blog | Aaron Rosas',
     };
 ---
 
 <BaseLayout title={copy.pageTitle} description={copy.description} lang={lang}>
   <Hero title={copy.title} subtitle={copy.subtitle} description={copy.description} />
-  <section class="py-16">
-    <div class="container grid grid-cols-1 items-start gap-12 md:grid-cols-[250px_1fr]">
-      <aside class="md:sticky md:top-24">
-        <div class="mb-8">
-          <h2 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{copy.search}</h2>
-          <input type="search" id="search-input" placeholder={copy.searchPlaceholder} class="input-field text-sm" autocomplete="off" />
-        </div>
-        <div class="mb-8">
-          <h2 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{copy.categories}</h2>
-          <div class="flex flex-col gap-2">
-            <button type="button" class="filter-btn active text-left" data-filter="all" aria-pressed="true">{copy.all}</button>
-            {categories.map((category) => <button type="button" class="filter-btn text-left" data-filter={category} aria-pressed="false">{category}</button>)}
-          </div>
-        </div>
+  <section class="py-16 md:py-20" aria-labelledby="article-index">
+    <div class="container">
+      <div class="mb-10 flex flex-col gap-2 border-b border-[var(--border-color)] pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{copy.tags}</h2>
-          <div class="flex flex-wrap gap-2">{tags.map((tag) => <button type="button" class="tag filter-tag cursor-pointer border-none" data-filter={tag} aria-pressed="false">{tag}</button>)}</div>
+          <p class="eyebrow">01 / Writing</p>
+          <h2 id="article-index" class="mt-3 text-3xl font-bold tracking-tight text-[var(--text-primary)]">{copy.index}</h2>
         </div>
-      </aside>
-
-      <div>
-        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2" id="posts-grid">
-          {posts.map((post) => (
-            <div class="post-item" data-category={post.data.category} data-tags={post.data.tags.join(',')} data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')}`.toLowerCase()}>
-              <Card title={post.data.title} description={post.data.description} href={`/blog/${post.slug}`} image={post.data.image} date={post.data.pubDate} category={post.data.category} tags={post.data.tags} type="blog" lang={lang} />
-            </div>
-          ))}
-        </div>
-        <div id="no-results" class="hidden py-12 text-center text-[var(--text-secondary)]"><p>{copy.none}</p></div>
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">{copy.count}</p>
+      </div>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <Card
+            title={post.data.title}
+            description={post.data.description}
+            href={`/blog/${post.id}`}
+            image={post.data.image}
+            date={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            lang={lang}
+          />
+        ))}
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .post-item.hidden { display: none; }
-  .filter-tag.active { background: var(--color-primary-500); color: white; }
-</style>
-
-<script>
-  function initBlogFilters() {
-    const categoryButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const tagButtons = document.querySelectorAll<HTMLButtonElement>('.filter-tag');
-    const posts = document.querySelectorAll<HTMLElement>('.post-item');
-    const search = document.getElementById('search-input') as HTMLInputElement | null;
-    const noResults = document.getElementById('no-results');
-    if (!search || search.dataset.initialized === 'true') return;
-    search.dataset.initialized = 'true';
-    let category = 'all';
-    const activeTags = new Set<string>();
-
-    const syncUrl = () => {
-      const url = new URL(window.location.href);
-      if (category === 'all') url.searchParams.delete('category'); else url.searchParams.set('category', category);
-      if (activeTags.size === 0) url.searchParams.delete('tags'); else url.searchParams.set('tags', [...activeTags].join(','));
-      const query = search.value.trim();
-      if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
-      history.replaceState({}, '', url);
-    };
-
-    const filter = () => {
-      const query = search.value.trim().toLowerCase();
-      let visible = 0;
-      posts.forEach((post) => {
-        const postTags = (post.dataset.tags ?? '').split(',');
-        const matches = (category === 'all' || post.dataset.category === category)
-          && (activeTags.size === 0 || [...activeTags].some((tag) => postTags.includes(tag)))
-          && (!query || (post.dataset.search ?? '').includes(query));
-        post.classList.toggle('hidden', !matches);
-        if (matches) visible += 1;
-      });
-      noResults?.classList.toggle('hidden', visible > 0);
-    };
-
-    search.addEventListener('input', () => { syncUrl(); filter(); });
-    categoryButtons.forEach((button) => button.addEventListener('click', () => {
-      categoryButtons.forEach((item) => item.classList.remove('active'));
-      button.classList.add('active');
-      categoryButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-      category = button.dataset.filter ?? 'all';
-      syncUrl();
-      filter();
-    }));
-    tagButtons.forEach((button) => button.addEventListener('click', () => {
-      const tag = button.dataset.filter ?? '';
-      if (activeTags.has(tag)) activeTags.delete(tag); else activeTags.add(tag);
-      button.classList.toggle('active', activeTags.has(tag));
-      button.setAttribute('aria-pressed', String(activeTags.has(tag)));
-      syncUrl();
-      filter();
-    }));
-
-    const initialParams = new URL(window.location.href).searchParams;
-    category = initialParams.get('category') ?? 'all';
-    search.value = initialParams.get('q') ?? '';
-    for (const tag of (initialParams.get('tags') ?? '').split(',').filter(Boolean)) activeTags.add(tag);
-    categoryButtons.forEach((button) => button.classList.toggle('active', button.dataset.filter === category));
-    categoryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
-    tagButtons.forEach((button) => {
-      const isActive = activeTags.has(button.dataset.filter ?? '');
-      button.classList.toggle('active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
-    filter();
-  }
-  initBlogFilters();
-  document.addEventListener('astro:after-swap', initBlogFilters);
-</script>

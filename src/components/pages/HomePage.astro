@@ -76,7 +76,7 @@ const copy = isEs
     };
 ---
 
-<BaseLayout title={copy.profileTitle} description={copy.description} lang={lang} image="/images/profile.jpg">
+<BaseLayout title={copy.profileTitle} description={copy.description} lang={lang} image="/images/avatar-v1.webp">
   <section class="relative overflow-hidden border-b border-[var(--border-color)]">
     <div class="container grid min-h-[68vh] items-center gap-12 py-20 lg:grid-cols-[1.45fr_0.55fr]">
       <div>
@@ -91,7 +91,7 @@ const copy = isEs
 
       <div class="relative mx-auto w-full max-w-xs">
         <div class="absolute -inset-5 rounded-[2rem] border border-[var(--border-color)] opacity-70"></div>
-        <img src="/images/profile.jpg" alt="Aaron Rosas" width="800" height="800" fetchpriority="high" class="relative aspect-square w-full rounded-[1.5rem] object-cover grayscale-[12%]" />
+        <img src="/images/avatar-v1.webp" alt={isEs ? 'Avatar ilustrado de Aaron Rosas' : 'Illustrated avatar of Aaron Rosas'} width="800" height="800" fetchpriority="high" class="relative aspect-square w-full rounded-[1.5rem] object-cover" />
         <div class="relative -mt-5 ml-5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-primary)] p-4 shadow-lg">
           <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--text-muted)]">{copy.current}</p>
           <p class="mt-1 text-sm font-semibold text-[var(--text-primary)]">{copy.currentValue}</p>
@@ -127,7 +127,6 @@ const copy = isEs
             technologies={project.data.technologies}
             github={project.data.github}
             demo={project.data.demo}
-            type="portfolio"
             placeholder={project.data.status === 'placeholder'}
             statusLabel={copy.reserved}
             lang={lang}
@@ -143,7 +142,7 @@ const copy = isEs
       <SectionHeader title={copy.writing} subtitle={copy.writingSubtitle} />
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {recentPosts.map((post) => (
-          <Card title={post.data.title} description={post.data.description} href={`/blog/${post.slug}`} image={post.data.image} date={post.data.pubDate} category={post.data.category} tags={post.data.tags} type="blog" lang={lang} />
+          <Card title={post.data.title} description={post.data.description} href={`/blog/${post.id}`} image={post.data.image} date={post.data.pubDate} category={post.data.category} tags={post.data.tags} lang={lang} />
         ))}
       </div>
       <div class="mt-12 text-center"><a href={localizePath('/blog', lang)} class="btn btn-secondary">{copy.allArticles}</a></div>
@@ -171,8 +170,36 @@ const copy = isEs
 
 <style>
   .systems-map article { background: var(--bg-secondary); }
+  .systems-map article::before {
+    content: '';
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 2px solid var(--color-primary-500);
+    border-radius: 999px;
+    background: var(--bg-secondary);
+  }
   .systems-map article + article { border-top: 1px solid var(--border-color); }
   @media (min-width: 1024px) {
     .systems-map article + article { border-top: 0; border-left: 1px solid var(--border-color); }
+    .systems-map article:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      z-index: 1;
+      right: -0.8rem;
+      top: 50%;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: var(--bg-primary);
+      color: var(--color-primary-600);
+      font-family: var(--font-family-mono);
+      font-size: 0.75rem;
+    }
   }
 </style>

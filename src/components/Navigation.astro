@@ -30,6 +30,9 @@ function isActive(base: string): boolean {
 
 const languageHref = alternateLanguagePath(currentPath, lang);
 const languageLabel = lang === "en" ? "ES" : "EN";
+const menuLabels = lang === 'es'
+  ? { open: 'Abrir menú', close: 'Cerrar menú' }
+  : { open: 'Open menu', close: 'Close menu' };
 ---
 
 <header class="sticky top-0 z-50 border-b border-[var(--border-color)] backdrop-blur-sm bg-white/90 dark:bg-slate-900/90">
@@ -42,9 +45,11 @@ const languageLabel = lang === "en" ? "ES" : "EN";
     <button
       class="mobile-menu-btn lg:hidden flex items-center justify-center w-10 h-10 bg-transparent border-none text-[var(--text-primary)] cursor-pointer"
       id="mobile-menu-btn"
-      aria-label={lang === "es" ? "Abrir menú" : "Open menu"}
+      aria-label={menuLabels.open}
       aria-controls="nav-links"
       aria-expanded="false"
+      data-open-label={menuLabels.open}
+      data-close-label={menuLabels.close}
     >
       <svg aria-hidden="true" class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
       <svg aria-hidden="true" class="close-icon hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -69,7 +74,7 @@ const languageLabel = lang === "en" ? "ES" : "EN";
           </li>
         ))}
       </ul>
-      <div class="flex items-center gap-2">
+      <div class="nav-tools flex items-center gap-2">
         <a
           href={languageHref}
           class="flex items-center justify-center h-10 min-w-10 px-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-tertiary)] font-mono text-xs font-semibold text-[var(--text-primary)] no-underline hover:border-[var(--color-primary-500)]"
@@ -94,16 +99,18 @@ const languageLabel = lang === "en" ? "ES" : "EN";
       inset: 4rem 0 0;
       flex-direction: column;
       align-items: stretch;
-      padding: 2rem;
+      padding: 2rem max(1rem, calc((100vw - 80rem) / 2));
+      padding-bottom: max(2rem, env(safe-area-inset-bottom));
       background-color: var(--bg-primary);
       transform: translateX(100%);
       transition: transform 0.25s ease;
+      overscroll-behavior: contain;
     }
     .nav-links.open { display: flex; transform: translateX(0); }
     .nav-links ul { flex-direction: column; width: 100%; }
     .nav-links li, .nav-links a { width: 100%; }
     .nav-links a { padding: 0.9rem; text-align: center; }
-    .nav-links > div { justify-content: center; }
+    .nav-links > .nav-tools { justify-content: center; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -117,20 +124,54 @@ const languageLabel = lang === "en" ? "ES" : "EN";
     const navLinks = document.getElementById("nav-links");
     if (!menuBtn || !navLinks || menuBtn.dataset.initialized === "true") return;
 
+    const main = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    const openLabel = menuBtn.dataset.openLabel ?? 'Open menu';
+    const closeLabel = menuBtn.dataset.closeLabel ?? 'Close menu';
+
+    const setMenuState = (isOpen: boolean, returnFocus = false) => {
+      menuBtn.classList.toggle('open', isOpen);
+      navLinks.classList.toggle('open', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
+      document.body.classList.toggle('menu-open', isOpen);
+      if (isOpen) {
+        main?.setAttribute('inert', '');
+        footer?.setAttribute('inert', '');
+        navLinks.querySelector<HTMLAnchorElement>('a')?.focus();
+      } else {
+        main?.removeAttribute('inert');
+        footer?.removeAttribute('inert');
+        if (returnFocus) menuBtn.focus();
+      }
+    };
+
     menuBtn.dataset.initialized = "true";
-    menuBtn.addEventListener("click", () => {
-      const isOpen = menuBtn.classList.toggle("open");
-      navLinks.classList.toggle("open", isOpen);
-      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    menuBtn.addEventListener('click', () => {
+      setMenuState(menuBtn.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menuBtn.closest('header')?.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+        setMenuState(false, true);
+      }
     });
 
     navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        menuBtn.classList.remove("open");
-        navLinks.classList.remove("open");
-        menuBtn.setAttribute("aria-expanded", "false");
+        setMenuState(false);
       });
     });
+
+    const desktopQuery = window.matchMedia('(min-width: 1024px)');
+    const closeAtDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuState(false);
+    };
+    desktopQuery.addEventListener('change', closeAtDesktop);
+    document.addEventListener('astro:before-swap', () => {
+      desktopQuery.removeEventListener('change', closeAtDesktop);
+      setMenuState(false);
+    }, { once: true });
   }
 
   initMobileMenu();

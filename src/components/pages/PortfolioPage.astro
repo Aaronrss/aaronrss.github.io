@@ -2,107 +2,86 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 import Card from '@/components/Card.astro';
-import { type Language } from '@/i18n';
+import type { Language } from '@/i18n';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Language; }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
 const projects = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
-const technologies = [...new Set(projects.flatMap((project) => project.data.technologies))];
+const published = projects.filter((project) => project.data.status === 'published');
+const reserved = projects.filter((project) => project.data.status === 'placeholder');
 
 const copy = isEs
   ? {
-      title: 'Proyectos', subtitle: 'Trabajo publicado y espacios reservados',
+      title: 'Proyectos',
+      subtitle: 'Trabajo publicado y espacio para lo que sigue',
       description: 'Una pieza real preservada y cascarones honestos para trabajo que todavía no quiero presentar como terminado.',
-      filter: 'Filtrar por tecnología:', all: 'Todas', none: 'No hay proyectos con la tecnología seleccionada.',
-      reserved: 'Reservado', pageTitle: 'Proyectos | Aaron Rosas',
+      published: 'Publicado',
+      publishedSubtitle: 'Trabajo que puedes abrir y explorar hoy.',
+      reserved: 'En preparación',
+      reservedSubtitle: 'Líneas de trabajo reservadas hasta que tengan evidencia, decisiones y resultados que valga la pena mostrar.',
+      status: 'Reservado',
+      pageTitle: 'Proyectos | Aaron Rosas',
     }
   : {
-      title: 'Projects', subtitle: 'Published work and reserved spaces',
+      title: 'Projects',
+      subtitle: 'Published work and room for what comes next',
       description: 'One preserved piece of real work and honest project shells for work I am not ready to present as finished.',
-      filter: 'Filter by technology:', all: 'All', none: 'No projects match the selected technology.',
-      reserved: 'Reserved', pageTitle: 'Projects | Aaron Rosas',
+      published: 'Published',
+      publishedSubtitle: 'Work you can open and explore today.',
+      reserved: 'In preparation',
+      reservedSubtitle: 'Reserved workstreams until they have evidence, decisions, and outcomes worth presenting.',
+      status: 'Reserved',
+      pageTitle: 'Projects | Aaron Rosas',
     };
 ---
 
 <BaseLayout title={copy.pageTitle} description={copy.description} lang={lang}>
   <Hero title={copy.title} subtitle={copy.subtitle} description={copy.description} />
 
-  <section class="py-16">
+  <section class="py-16 md:py-20" aria-labelledby="published-projects">
     <div class="container">
-      <div class="mb-12 flex flex-wrap items-center gap-4">
-        <span class="font-medium text-[var(--text-secondary)]">{copy.filter}</span>
-        <div class="flex flex-wrap gap-2">
-          <button type="button" class="filter-btn active" data-tech="all" aria-pressed="true">{copy.all}</button>
-          {technologies.map((technology) => <button type="button" class="filter-btn" data-tech={technology} aria-pressed="false">{technology}</button>)}
-        </div>
+      <div class="mb-10 max-w-2xl">
+        <p class="eyebrow">01 / {copy.published}</p>
+        <h2 id="published-projects" class="mt-3 text-3xl font-bold tracking-tight text-[var(--text-primary)]">{copy.published}</h2>
+        <p class="mt-3 text-[var(--text-secondary)]">{copy.publishedSubtitle}</p>
       </div>
-
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" id="projects-grid">
-        {projects.map((project) => (
-          <div class="project-item transition-opacity duration-300" data-technologies={project.data.technologies.join(',')}>
-            <Card
-              title={isEs ? project.data.titleEs ?? project.data.title : project.data.title}
-              description={isEs ? project.data.descriptionEs ?? project.data.description : project.data.description}
-              image={project.data.image}
-              technologies={project.data.technologies}
-              github={project.data.github}
-              demo={project.data.demo}
-              type="portfolio"
-              placeholder={project.data.status === 'placeholder'}
-              statusLabel={copy.reserved}
-              lang={lang}
-            />
-          </div>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {published.map((project) => (
+          <Card
+            title={isEs ? project.data.titleEs ?? project.data.title : project.data.title}
+            description={isEs ? project.data.descriptionEs ?? project.data.description : project.data.description}
+            image={project.data.image}
+            technologies={project.data.technologies}
+            github={project.data.github}
+            demo={project.data.demo}
+            lang={lang}
+          />
         ))}
       </div>
+    </div>
+  </section>
 
-      <div id="no-results" class="hidden py-12 text-center text-[var(--text-secondary)]"><p>{copy.none}</p></div>
+  <section class="border-y border-[var(--border-color)] bg-[var(--bg-secondary)] py-16 md:py-20" aria-labelledby="reserved-projects">
+    <div class="container">
+      <div class="mb-10 max-w-2xl">
+        <p class="eyebrow">02 / {copy.reserved}</p>
+        <h2 id="reserved-projects" class="mt-3 text-3xl font-bold tracking-tight text-[var(--text-primary)]">{copy.reserved}</h2>
+        <p class="mt-3 text-[var(--text-secondary)]">{copy.reservedSubtitle}</p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {reserved.map((project) => (
+          <Card
+            title={isEs ? project.data.titleEs ?? project.data.title : project.data.title}
+            description={isEs ? project.data.descriptionEs ?? project.data.description : project.data.description}
+            technologies={project.data.technologies}
+            placeholder
+            statusLabel={copy.status}
+            lang={lang}
+          />
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
-
-<style>.project-item.hidden { display: none; }</style>
-
-<script>
-  function initProjectFilters() {
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const items = document.querySelectorAll<HTMLElement>('.project-item');
-    const noResults = document.getElementById('no-results');
-    if (!buttons.length || buttons[0].dataset.initialized === 'true') return;
-    buttons.forEach((button) => button.dataset.initialized = 'true');
-
-    const applyFilter = (selected: string) => {
-      let visible = 0;
-      items.forEach((item) => {
-        const matches = selected === 'all' || (item.dataset.technologies ?? '').split(',').includes(selected);
-        item.classList.toggle('hidden', !matches);
-        if (matches) visible += 1;
-      });
-      noResults?.classList.toggle('hidden', visible > 0);
-    };
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        buttons.forEach((item) => item.classList.remove('active'));
-        button.classList.add('active');
-        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-        const selected = button.dataset.tech ?? 'all';
-        const url = new URL(window.location.href);
-        if (selected === 'all') url.searchParams.delete('technology'); else url.searchParams.set('technology', selected);
-        history.replaceState({}, '', url);
-        applyFilter(selected);
-      });
-    });
-
-    const initial = new URL(window.location.href).searchParams.get('technology') ?? 'all';
-    const initialButton = [...buttons].find((button) => button.dataset.tech === initial) ?? buttons[0];
-    buttons.forEach((button) => button.classList.toggle('active', button === initialButton));
-    buttons.forEach((button) => button.setAttribute('aria-pressed', String(button === initialButton)));
-    applyFilter(initialButton.dataset.tech ?? 'all');
-  }
-
-  initProjectFilters();
-  document.addEventListener('astro:after-swap', initProjectFilters);
-</script>

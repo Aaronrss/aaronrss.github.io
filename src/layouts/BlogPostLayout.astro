@@ -13,6 +13,9 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   month: 'long',
   day: 'numeric'
 }).format(frontmatter.pubDate);
+const formattedUpdate = frontmatter.updatedDate
+  ? new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(frontmatter.updatedDate)
+  : null;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description} image={frontmatter.image}>
@@ -20,13 +23,11 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
     <header class="py-16 md:py-8 text-center bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-primary)]">
       <div class="container">
         <div class="flex items-center justify-center gap-4 mb-6 text-sm text-[var(--text-muted)]">
-          <a 
-            href={`/blog?category=${frontmatter.category}`} 
-            class="px-3 py-1 rounded-full text-white no-underline font-medium bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] transition-colors"
-          >
+          <a href="/blog" class="px-3 py-1 rounded-full text-white no-underline font-medium bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] transition-colors">
             {frontmatter.category}
           </a>
           <time datetime={frontmatter.pubDate.toISOString()}>{formattedDate}</time>
+          {formattedUpdate && <span>Updated {formattedUpdate}</span>}
         </div>
         <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--text-primary)] max-w-3xl mx-auto mb-4 leading-tight">
           {frontmatter.title}
@@ -36,9 +37,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
         </p>
         {frontmatter.tags && frontmatter.tags.length > 0 && (
           <div class="flex flex-wrap gap-2 justify-center">
-            {frontmatter.tags.map((tag: string) => (
-              <a href={`/blog?tag=${tag}`} class="tag">{tag}</a>
-            ))}
+            {frontmatter.tags.map((tag: string) => <span class="tag">{tag}</span>)}
           </div>
         )}
       </div>

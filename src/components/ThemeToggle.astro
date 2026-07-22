@@ -13,6 +13,8 @@ const { lang = 'en' } = Astro.props;
   type="button"
   class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-primary)] border border-[var(--border-color)] cursor-pointer transition-[background-color,transform] duration-200 hover:bg-[var(--border-color)] hover:scale-105"
   aria-label={lang === 'es' ? 'Cambiar tema de color' : 'Toggle color theme'}
+  aria-pressed="false"
+  data-lang={lang}
 >
   <svg
     aria-hidden="true"
@@ -55,28 +57,31 @@ const { lang = 'en' } = Astro.props;
 </button>
 
 <script>
+  function syncThemeButton(button: HTMLButtonElement, isDark: boolean) {
+    const isEs = button.dataset.lang === 'es';
+    button.setAttribute('aria-pressed', String(isDark));
+    button.setAttribute('aria-label', isDark
+      ? (isEs ? 'Usar tema claro' : 'Use light theme')
+      : (isEs ? 'Usar tema oscuro' : 'Use dark theme'));
+  }
+
   function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }
-
-  function toggleTheme() {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    document.documentElement.classList.toggle('dark', isDark);
+    const button = document.getElementById('theme-toggle');
+    if (!(button instanceof HTMLButtonElement)) return;
+    syncThemeButton(button, isDark);
+    if (button.dataset.initialized === 'true') return;
+    button.dataset.initialized = 'true';
+    button.addEventListener('click', () => {
+      const nextIsDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+      syncThemeButton(button, nextIsDark);
+    });
   }
 
   initTheme();
-
-  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
-
-  document.addEventListener('astro:after-swap', () => {
-    initTheme();
-    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
-  });
+  document.addEventListener('astro:after-swap', initTheme);
 </script>
