@@ -5,13 +5,29 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import { defineConfig } from 'astro/config';
 
+const legacyDevRedirect = {
+  name: 'legacy-dev-redirect',
+  configureServer(server) {
+    server.middlewares.use((request, response, next) => {
+      if (request.url === '/legacy' || request.url === '/legacy/') {
+        response.statusCode = 302;
+        response.setHeader('Location', '/legacy/index.html');
+        response.end();
+        return;
+      }
+
+      next();
+    });
+  }
+};
+
 export default defineConfig({
   site: 'https://aaronrss.github.io',
   base: '/',
   output: 'static',
   integrations: [mdx(), icon(), sitemap()],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), legacyDevRedirect],
     server: {
       host: '0.0.0.0',
       port: 5000,

@@ -1,0 +1,118 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import { profile, text } from '@/data/profile';
+import { localizePath, type Language } from '@/i18n';
+
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+
+const copy = isEs
+  ? {
+      title: 'Perfil', subtitle: 'Software Engineer',
+      description: 'Backend, cloud, application delivery y comunicación técnica desde Ciudad de México.',
+      hello: 'Hola, soy Aaron.',
+      intro: 'Soy Software Engineer con experiencia en sistemas backend críticos y regulados. Mi trabajo conecta código, datos, infraestructura y operación para que el software sea confiable y entendible después del despliegue.',
+      approach: 'También disfruto convertir sistemas complejos en documentación, ejemplos y explicaciones que ayuden a otros equipos a operar con claridad.',
+      contact: 'Contactarme', projects: 'Ver proyectos', experience: 'Experiencia profesional', education: 'Formación y certificaciones',
+      backend: 'Backend y datos', delivery: 'Cloud y delivery', signals: 'Observabilidad y calidad',
+      interests: 'Intereses profesionales', interestsBody: text(profile.interests.engineering, lang),
+      music: 'Fuera del trabajo', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram',
+      pageTitle: 'Perfil | Aaron Rosas',
+    }
+  : {
+      title: 'Profile', subtitle: 'Software Engineer',
+      description: 'Backend, cloud, application delivery, and technical communication from Mexico City.',
+      hello: "Hi, I'm Aaron.",
+      intro: 'I am a Software Engineer experienced in critical, regulated backend systems. My work connects code, data, infrastructure, and operations so software remains reliable and understandable after deployment.',
+      approach: 'I also enjoy turning complex systems into documentation, examples, and explanations that help engineering teams operate with clarity.',
+      contact: 'Contact me', projects: 'View projects', experience: 'Professional experience', education: 'Education and certifications',
+      backend: 'Backend and data', delivery: 'Cloud and delivery', signals: 'Observability and quality',
+      interests: 'Professional interests', interestsBody: text(profile.interests.engineering, lang),
+      music: 'Outside work', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram',
+      pageTitle: 'Profile | Aaron Rosas',
+    };
+
+const skillGroups = [
+  [copy.backend, [...profile.skills.backend, ...profile.skills.data]],
+  [copy.delivery, profile.skills.delivery],
+  [copy.signals, profile.skills.observability],
+] as const;
+---
+
+<BaseLayout title={copy.pageTitle} description={copy.description} lang={lang} image="/images/profile.jpg">
+  <Hero title={copy.title} subtitle={copy.subtitle} description={copy.description} />
+
+  <section class="py-16">
+    <div class="container grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px] lg:items-start">
+      <div>
+        <div class="mb-16 grid gap-8 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-7 md:grid-cols-[190px_1fr] md:p-9">
+          <img src="/images/profile.jpg" alt="Aaron Rosas" width="800" height="800" loading="lazy" class="mx-auto aspect-square w-44 rounded-2xl object-cover md:mx-0" />
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">{copy.hello}</h2>
+            <p class="mt-4 leading-relaxed text-[var(--text-secondary)]">{copy.intro}</p>
+            <p class="mt-4 leading-relaxed text-[var(--text-secondary)]">{copy.approach}</p>
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a href={localizePath('/contact', lang)} class="btn btn-primary">{copy.contact}</a>
+              <a href={localizePath('/portfolio', lang)} class="btn btn-secondary">{copy.projects}</a>
+            </div>
+          </div>
+        </div>
+
+        <section class="mb-16" aria-labelledby="experience-heading">
+          <h2 id="experience-heading" class="mb-8 border-b border-[var(--border-color)] pb-3 text-2xl font-bold text-[var(--text-primary)]">{copy.experience}</h2>
+          <div class="relative ml-2 border-l border-[var(--border-color)] pl-8">
+            {profile.experience.map((job) => (
+              <article class="relative mb-10 last:mb-0">
+                <span class="absolute -left-[2.28rem] top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--color-primary-500)] ring-4 ring-[var(--bg-primary)]"></span>
+                <div class="flex flex-wrap items-start justify-between gap-2">
+                  <h3 class="font-semibold text-[var(--text-primary)]">{text(job.title, lang)}</h3>
+                  <time class="font-mono text-xs text-[var(--color-primary-600)] dark:text-[var(--color-primary-300)]">{text(job.period, lang)}</time>
+                </div>
+                <p class="mt-1 text-sm font-medium text-[var(--text-muted)]">{job.company}</p>
+                <p class="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">{text(job.description, lang)}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="education-heading">
+          <h2 id="education-heading" class="mb-8 border-b border-[var(--border-color)] pb-3 text-2xl font-bold text-[var(--text-primary)]">{copy.education}</h2>
+          <div class="grid gap-5 md:grid-cols-2">
+            {profile.education.map((item) => (
+              <article class="rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6">
+                <h3 class="font-semibold text-[var(--text-primary)]">{text(item.title, lang)}</h3>
+                <p class="mt-2 text-sm text-[var(--text-secondary)]">{item.institution}</p>
+                <p class="mt-4 font-mono text-xs text-[var(--color-primary-600)] dark:text-[var(--color-primary-300)]">{item.period}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <aside class="space-y-6 lg:sticky lg:top-24">
+        {skillGroups.map(([title, skills]) => (
+          <section class="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6">
+            <h2 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{title}</h2>
+            <div class="flex flex-wrap gap-2">{skills.map((skill) => <span class="tag">{skill}</span>)}</div>
+          </section>
+        ))}
+
+        <section class="rounded-2xl border border-[var(--border-color)] p-6">
+          <h2 class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{copy.interests}</h2>
+          <p class="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{copy.interestsBody}</p>
+        </section>
+
+        <section class="rounded-2xl border border-[var(--border-color)] bg-gradient-to-br from-violet-500/10 to-sky-500/10 p-6">
+          <h2 class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-500)]">{copy.music}</h2>
+          <p class="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{copy.musicBody}</p>
+          <div class="mt-5 flex gap-4 text-sm">
+            <a href={profile.links.soundcloud} target="_blank" rel="noopener noreferrer">{copy.listen} ↗</a>
+            <a href={profile.links.instagram} target="_blank" rel="noopener noreferrer">{copy.instagram} ↗</a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

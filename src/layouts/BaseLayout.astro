@@ -3,25 +3,37 @@ import Navigation from '@/components/Navigation.astro';
 import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
+import { alternateLanguagePath, type Language } from '@/i18n';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  lang?: Language;
 }
 
-const { title, description = 'Professional Portfolio - Web Developer', image } = Astro.props;
+const {
+  title,
+  description = 'Aaron Rosas — Software Engineer focused on backend, cloud, and application delivery.',
+  image,
+  lang = 'en',
+} = Astro.props;
 const currentPath = Astro.url.pathname;
+const alternatePath = alternateLanguagePath(currentPath, lang);
+const canonicalUrl = Astro.site ? new URL(currentPath, Astro.site) : undefined;
+const alternateUrl = Astro.site ? new URL(alternatePath, Astro.site) : undefined;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -32,12 +44,17 @@ const currentPath = Astro.url.pathname;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {image && <meta name="twitter:image" content={image} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {alternateUrl && (
+      <link rel="alternate" hreflang={lang === 'en' ? 'es' : 'en'} href={alternateUrl} />
+    )}
+    {canonicalUrl && <link rel="alternate" hreflang={lang} href={canonicalUrl} />}
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
     
     <ClientRouter />
     <Analytics />
@@ -54,11 +71,11 @@ const currentPath = Astro.url.pathname;
     </script>
   </head>
   <body>
-    <Navigation currentPath={currentPath} />
-    <main>
+    <a href="#main-content" class="skip-link">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+    <Navigation currentPath={currentPath} lang={lang} />
+    <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <Analytics />
+    <Footer lang={lang} />
   </body>
 </html>

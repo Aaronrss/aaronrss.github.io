@@ -1,0 +1,178 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Card from "@/components/Card.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { profile, text } from "@/data/profile";
+import { localizePath, type Language } from "@/i18n";
+import { getCollection } from "astro:content";
+
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const isEs = lang === "es";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const recentPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const allProjects = await getCollection("portfolio");
+const featuredProjects = allProjects.filter((project) => project.data.featured).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+
+const copy = isEs
+  ? {
+      title: "Construyo sistemas que siguen siendo comprensibles.",
+      eyebrow: "Aaron Rosas · Software Engineer",
+      projects: "Explorar proyectos",
+      profile: "Ver perfil",
+      current: "Actualmente",
+      currentValue: "Application Delivery en Quanta · Ciudad de México",
+      mapTitle: "Del código a la operación",
+      mapSubtitle: "Mi trabajo conecta la implementación backend con todo lo necesario para entregarla, observarla y mantenerla.",
+      layers: [
+        ["01 · Backend", "Servicios y datos", "Java, Spring Boot, Python, SQL, APIs y microservicios."],
+        ["02 · Delivery", "Software en movimiento", "Docker, Kubernetes, AWS, CI/CD y operación controlada."],
+        ["03 · Señales", "Calidad y observabilidad", "Splunk, Grafana, Prometheus, pruebas y documentación técnica."],
+      ],
+      featured: "Trabajo y cascarones",
+      featuredSubtitle: "El sitio anterior es una pieza real. Los demás espacios están reservados para proyectos que todavía no quiero publicar.",
+      allProjects: "Ver todos los proyectos",
+      writing: "Notas técnicas",
+      writingSubtitle: "Artículos existentes en inglés sobre desarrollo web y prácticas de ingeniería.",
+      allArticles: "Ver todos los artículos",
+      beyond: "Fuera del código",
+      beyondTitle: "La misma disciplina, otro medio.",
+      beyondBody: text(profile.interests.music, lang),
+      soundcloud: "Escuchar en SoundCloud",
+      mix: "Escuchar un mix",
+      profileTitle: "Aaron Rosas — Software Engineer en Ciudad de México",
+      description: text(profile.summary, lang),
+      reserved: "Reservado",
+    }
+  : {
+      title: "I build systems that stay understandable.",
+      eyebrow: "Aaron Rosas · Software Engineer",
+      projects: "Explore projects",
+      profile: "View profile",
+      current: "Currently",
+      currentValue: "Application Delivery at Quanta · Mexico City",
+      mapTitle: "From code to operation",
+      mapSubtitle: "My work connects backend implementation with everything required to deliver, observe, and maintain it.",
+      layers: [
+        ["01 · Backend", "Services and data", "Java, Spring Boot, Python, SQL, APIs, and microservices."],
+        ["02 · Delivery", "Software in motion", "Docker, Kubernetes, AWS, CI/CD, and controlled operations."],
+        ["03 · Signals", "Quality and observability", "Splunk, Grafana, Prometheus, testing, and technical documentation."],
+      ],
+      featured: "Work and project shells",
+      featuredSubtitle: "The legacy site is a real piece of work. The remaining spaces are reserved for projects I am not ready to publish yet.",
+      allProjects: "View all projects",
+      writing: "Technical notes",
+      writingSubtitle: "Existing articles about web development and engineering practices.",
+      allArticles: "View all articles",
+      beyond: "Beyond code",
+      beyondTitle: "The same discipline, through another medium.",
+      beyondBody: text(profile.interests.music, lang),
+      soundcloud: "Listen on SoundCloud",
+      mix: "Listen to a mix",
+      profileTitle: "Aaron Rosas — Software Engineer in Mexico City",
+      description: text(profile.summary, lang),
+      reserved: "Reserved",
+    };
+---
+
+<BaseLayout title={copy.profileTitle} description={copy.description} lang={lang} image="/images/profile.jpg">
+  <section class="relative overflow-hidden border-b border-[var(--border-color)]">
+    <div class="container grid min-h-[68vh] items-center gap-12 py-20 lg:grid-cols-[1.45fr_0.55fr]">
+      <div>
+        <p class="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-primary-600)] dark:text-[var(--color-primary-300)]">{copy.eyebrow}</p>
+        <h1 class="max-w-5xl text-5xl font-extrabold leading-[1.02] tracking-[-0.045em] text-[var(--text-primary)] md:text-7xl">{copy.title}</h1>
+        <p class="mt-8 max-w-3xl text-lg leading-relaxed text-[var(--text-secondary)] md:text-xl">{copy.description}</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+          <a href={localizePath('/portfolio', lang)} class="btn btn-primary">{copy.projects}</a>
+          <a href={localizePath('/about', lang)} class="btn btn-secondary">{copy.profile}</a>
+        </div>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-xs">
+        <div class="absolute -inset-5 rounded-[2rem] border border-[var(--border-color)] opacity-70"></div>
+        <img src="/images/profile.jpg" alt="Aaron Rosas" width="800" height="800" fetchpriority="high" class="relative aspect-square w-full rounded-[1.5rem] object-cover grayscale-[12%]" />
+        <div class="relative -mt-5 ml-5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-primary)] p-4 shadow-lg">
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--text-muted)]">{copy.current}</p>
+          <p class="mt-1 text-sm font-semibold text-[var(--text-primary)]">{copy.currentValue}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container">
+      <SectionHeader title={copy.mapTitle} subtitle={copy.mapSubtitle} centered={false} />
+      <div class="systems-map grid overflow-hidden rounded-2xl border border-[var(--border-color)] lg:grid-cols-3">
+        {copy.layers.map(([label, title, description]) => (
+          <article class="relative p-7 lg:p-8">
+            <p class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-primary-600)] dark:text-[var(--color-primary-300)]">{label}</p>
+            <h2 class="mt-8 text-xl font-bold text-[var(--text-primary)]">{title}</h2>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">{description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--bg-secondary)] py-20">
+    <div class="container">
+      <SectionHeader title={copy.featured} subtitle={copy.featuredSubtitle} />
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {featuredProjects.map((project) => (
+          <Card
+            title={isEs ? project.data.titleEs ?? project.data.title : project.data.title}
+            description={isEs ? project.data.descriptionEs ?? project.data.description : project.data.description}
+            image={project.data.image}
+            technologies={project.data.technologies}
+            github={project.data.github}
+            demo={project.data.demo}
+            type="portfolio"
+            placeholder={project.data.status === 'placeholder'}
+            statusLabel={copy.reserved}
+            lang={lang}
+          />
+        ))}
+      </div>
+      <div class="mt-12 text-center"><a href={localizePath('/portfolio', lang)} class="btn btn-secondary">{copy.allProjects}</a></div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container">
+      <SectionHeader title={copy.writing} subtitle={copy.writingSubtitle} />
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {recentPosts.map((post) => (
+          <Card title={post.data.title} description={post.data.description} href={`/blog/${post.slug}`} image={post.data.image} date={post.data.pubDate} category={post.data.category} tags={post.data.tags} type="blog" lang={lang} />
+        ))}
+      </div>
+      <div class="mt-12 text-center"><a href={localizePath('/blog', lang)} class="btn btn-secondary">{copy.allArticles}</a></div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container">
+      <div class="grid items-end gap-10 rounded-3xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8 md:p-12 lg:grid-cols-[0.7fr_1.3fr]">
+        <div>
+          <p class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-500)]">{copy.beyond}</p>
+          <h2 class="mt-4 text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl">{copy.beyondTitle}</h2>
+        </div>
+        <div>
+          <p class="text-lg leading-relaxed text-[var(--text-secondary)]">{copy.beyondBody}</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href={profile.links.soundcloud} target="_blank" rel="noopener noreferrer" class="btn btn-primary">{copy.soundcloud}</a>
+            <a href={profile.links.mix} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">{copy.mix}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .systems-map article { background: var(--bg-secondary); }
+  .systems-map article + article { border-top: 1px solid var(--border-color); }
+  @media (min-width: 1024px) {
+    .systems-map article + article { border-top: 0; border-left: 1px solid var(--border-color); }
+  }
+</style>

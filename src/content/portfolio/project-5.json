@@ -1,0 +1,11 @@
+{
+  "title": "Legacy Portfolio",
+  "titleEs": "Sitio anterior",
+  "description": "The previous version of my personal site, preserved as a working snapshot and an ongoing piece to revisit and improve.",
+  "descriptionEs": "La versión anterior de mi sitio personal, conservada como una pieza funcional que quiero seguir revisando y mejorando.",
+  "technologies": ["HTML", "CSS", "JavaScript"],
+  "demo": "/legacy/",
+  "featured": true,
+  "order": 1,
+  "status": "published"
+}

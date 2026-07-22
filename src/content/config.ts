@@ -4,7 +4,9 @@ const blogCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    titleEs: z.string().optional(),
     description: z.string(),
+    descriptionEs: z.string().optional(),
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     image: z.string().optional(),
@@ -25,6 +27,7 @@ const portfolioCollection = defineCollection({
     demo: z.string().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(0),
+    status: z.enum(['published', 'placeholder']).default('published'),
   }),
 });
 

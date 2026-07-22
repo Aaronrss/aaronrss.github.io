@@ -1,13 +1,21 @@
 ---
+import type { Language } from '@/i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'en' } = Astro.props;
 ---
 
 <button
   id="theme-toggle"
   type="button"
-  class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-primary)] border border-[var(--border-color)] cursor-pointer transition-all duration-200 hover:bg-[var(--border-color)] hover:scale-105"
-  aria-label="Toggle dark mode"
+  class="flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--bg-tertiary)] text-[var(--text-primary)] border border-[var(--border-color)] cursor-pointer transition-[background-color,transform] duration-200 hover:bg-[var(--border-color)] hover:scale-105"
+  aria-label={lang === 'es' ? 'Cambiar tema de color' : 'Toggle color theme'}
 >
   <svg
+    aria-hidden="true"
     class="sun-icon block dark:hidden"
     xmlns="http://www.w3.org/2000/svg"
     width="20"
@@ -30,6 +38,7 @@
     <path d="m19.07 4.93-1.41 1.41"></path>
   </svg>
   <svg
+    aria-hidden="true"
     class="moon-icon hidden dark:block"
     xmlns="http://www.w3.org/2000/svg"
     width="20"

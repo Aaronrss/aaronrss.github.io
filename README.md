@@ -1,43 +1,63 @@
-# Astro Starter Kit: Minimal
+# aaronrss.github.io
 
-```sh
-npm create astro@latest -- --template minimal
+Public bilingual portfolio for Aaron Rosas, built with Astro and deployed to
+GitHub Pages. The site focuses on backend engineering, cloud, application
+delivery, technical writing, and selected personal interests.
+
+## Routes
+
+| English | Español | Purpose |
+| --- | --- | --- |
+| `/` | `/es/` | Home |
+| `/about` | `/es/about` | Profile and experience |
+| `/portfolio` | `/es/portfolio` | Published work and reserved project shells |
+| `/blog` | `/es/blog` | Technical articles; current posts are in English |
+| `/contact` | `/es/contact` | Contact form and public profiles |
+
+The previous site is preserved under `/legacy/`. During Astro development,
+that route redirects to `/legacy/index.html`; the original files remain in
+`public/legacy/`.
+
+## Development
+
+```bash
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open `http://localhost:5000`.
 
-## 🚀 Project Structure
+### Docker
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+docker compose up --build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+The repository is mounted into the container for Astro hot reload. Stop it
+with `Ctrl+C`, or from another terminal:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+docker compose down
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Verification
 
-## 🧞 Commands
+```bash
+npm run build
+```
 
-All commands are run from the root of the project, from a terminal:
+The static build is generated in `dist/`. The repository currently does not
+define separate test or lint scripts.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Content and structure
 
-## 👀 Want to learn more?
+- `src/data/profile.ts`: approved public profile facts and translations.
+- `src/components/pages/`: shared bilingual page implementations.
+- `src/pages/`: thin English and Spanish route entry points.
+- `src/content/blog/`: MDX articles.
+- `src/content/portfolio/`: published work and explicit project placeholders.
+- `public/legacy/`: preserved previous website.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Portfolio placeholders must not contain invented claims, repository URLs, or
+demo URLs. Replace a placeholder only when the corresponding work is ready to
+publish.

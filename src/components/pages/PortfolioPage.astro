@@ -1,0 +1,108 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import Card from '@/components/Card.astro';
+import { type Language } from '@/i18n';
+import { getCollection } from 'astro:content';
+
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const projects = (await getCollection('portfolio')).sort((a, b) => a.data.order - b.data.order);
+const technologies = [...new Set(projects.flatMap((project) => project.data.technologies))];
+
+const copy = isEs
+  ? {
+      title: 'Proyectos', subtitle: 'Trabajo publicado y espacios reservados',
+      description: 'Una pieza real preservada y cascarones honestos para trabajo que todavía no quiero presentar como terminado.',
+      filter: 'Filtrar por tecnología:', all: 'Todas', none: 'No hay proyectos con la tecnología seleccionada.',
+      reserved: 'Reservado', pageTitle: 'Proyectos | Aaron Rosas',
+    }
+  : {
+      title: 'Projects', subtitle: 'Published work and reserved spaces',
+      description: 'One preserved piece of real work and honest project shells for work I am not ready to present as finished.',
+      filter: 'Filter by technology:', all: 'All', none: 'No projects match the selected technology.',
+      reserved: 'Reserved', pageTitle: 'Projects | Aaron Rosas',
+    };
+---
+
+<BaseLayout title={copy.pageTitle} description={copy.description} lang={lang}>
+  <Hero title={copy.title} subtitle={copy.subtitle} description={copy.description} />
+
+  <section class="py-16">
+    <div class="container">
+      <div class="mb-12 flex flex-wrap items-center gap-4">
+        <span class="font-medium text-[var(--text-secondary)]">{copy.filter}</span>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="filter-btn active" data-tech="all" aria-pressed="true">{copy.all}</button>
+          {technologies.map((technology) => <button type="button" class="filter-btn" data-tech={technology} aria-pressed="false">{technology}</button>)}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" id="projects-grid">
+        {projects.map((project) => (
+          <div class="project-item transition-opacity duration-300" data-technologies={project.data.technologies.join(',')}>
+            <Card
+              title={isEs ? project.data.titleEs ?? project.data.title : project.data.title}
+              description={isEs ? project.data.descriptionEs ?? project.data.description : project.data.description}
+              image={project.data.image}
+              technologies={project.data.technologies}
+              github={project.data.github}
+              demo={project.data.demo}
+              type="portfolio"
+              placeholder={project.data.status === 'placeholder'}
+              statusLabel={copy.reserved}
+              lang={lang}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div id="no-results" class="hidden py-12 text-center text-[var(--text-secondary)]"><p>{copy.none}</p></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>.project-item.hidden { display: none; }</style>
+
+<script>
+  function initProjectFilters() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items = document.querySelectorAll<HTMLElement>('.project-item');
+    const noResults = document.getElementById('no-results');
+    if (!buttons.length || buttons[0].dataset.initialized === 'true') return;
+    buttons.forEach((button) => button.dataset.initialized = 'true');
+
+    const applyFilter = (selected: string) => {
+      let visible = 0;
+      items.forEach((item) => {
+        const matches = selected === 'all' || (item.dataset.technologies ?? '').split(',').includes(selected);
+        item.classList.toggle('hidden', !matches);
+        if (matches) visible += 1;
+      });
+      noResults?.classList.toggle('hidden', visible > 0);
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        const selected = button.dataset.tech ?? 'all';
+        const url = new URL(window.location.href);
+        if (selected === 'all') url.searchParams.delete('technology'); else url.searchParams.set('technology', selected);
+        history.replaceState({}, '', url);
+        applyFilter(selected);
+      });
+    });
+
+    const initial = new URL(window.location.href).searchParams.get('technology') ?? 'all';
+    const initialButton = [...buttons].find((button) => button.dataset.tech === initial) ?? buttons[0];
+    buttons.forEach((button) => button.classList.toggle('active', button === initialButton));
+    buttons.forEach((button) => button.setAttribute('aria-pressed', String(button === initialButton)));
+    applyFilter(initialButton.dataset.tech ?? 'all');
+  }
+
+  initProjectFilters();
+  document.addEventListener('astro:after-swap', initProjectFilters);
+</script>
