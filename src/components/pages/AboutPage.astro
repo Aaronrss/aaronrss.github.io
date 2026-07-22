@@ -11,26 +11,26 @@ const isEs = lang === 'es';
 const copy = isEs
   ? {
       title: 'Perfil', subtitle: 'Software Engineer',
-      description: 'Backend, cloud, application delivery y comunicación técnica desde Ciudad de México.',
+      description: 'QA, auditoría técnica asistida por IA, backend y application delivery desde Ciudad de México.',
       hello: 'Hola, soy Aaron.',
-      intro: 'Soy Software Engineer con experiencia en sistemas backend críticos y regulados. Mi trabajo conecta código, datos, infraestructura y operación para que el software sea confiable y entendible después del despliegue.',
+      intro: 'Soy Software Engineer con experiencia en sistemas críticos y regulados. Actualmente combino QA y auditoría técnica L2 asistida por IA en Quanta con Application Delivery en VALMEX.',
       approach: 'También disfruto convertir sistemas complejos en documentación, ejemplos y explicaciones que ayuden a otros equipos a operar con claridad.',
       contact: 'Contactarme', projects: 'Ver proyectos', experience: 'Experiencia profesional', education: 'Formación y certificaciones',
       backend: 'Backend y datos', delivery: 'Cloud y delivery', signals: 'Observabilidad y calidad',
       interests: 'Intereses profesionales', interestsBody: text(profile.interests.engineering, lang),
-      music: 'Fuera del trabajo', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram',
+      music: 'Fuera del trabajo', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram', x: 'X',
       pageTitle: 'Perfil | Aaron Rosas',
     }
   : {
       title: 'Profile', subtitle: 'Software Engineer',
-      description: 'Backend, cloud, application delivery, and technical communication from Mexico City.',
+      description: 'QA, AI-assisted technical auditing, backend, and application delivery from Mexico City.',
       hello: "Hi, I'm Aaron.",
-      intro: 'I am a Software Engineer experienced in critical, regulated backend systems. My work connects code, data, infrastructure, and operations so software remains reliable and understandable after deployment.',
+      intro: 'I am a Software Engineer experienced in critical, regulated systems. I currently combine QA and AI-assisted L2 technical auditing at Quanta with Application Delivery at VALMEX.',
       approach: 'I also enjoy turning complex systems into documentation, examples, and explanations that help engineering teams operate with clarity.',
       contact: 'Contact me', projects: 'View projects', experience: 'Professional experience', education: 'Education and certifications',
       backend: 'Backend and data', delivery: 'Cloud and delivery', signals: 'Observability and quality',
       interests: 'Professional interests', interestsBody: text(profile.interests.engineering, lang),
-      music: 'Outside work', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram',
+      music: 'Outside work', musicBody: text(profile.interests.music, lang), listen: 'SoundCloud', instagram: 'Instagram', x: 'X',
       pageTitle: 'Profile | Aaron Rosas',
     };
 
@@ -107,9 +107,10 @@ const skillGroups = [
         <section class="rounded-2xl border border-[var(--border-color)] bg-gradient-to-br from-violet-500/10 to-sky-500/10 p-6">
           <h2 class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-500)]">{copy.music}</h2>
           <p class="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{copy.musicBody}</p>
-          <div class="mt-5 flex gap-4 text-sm">
+          <div class="mt-5 flex flex-wrap gap-4 text-sm">
             <a href={profile.links.soundcloud} target="_blank" rel="noopener noreferrer">{copy.listen} ↗</a>
             <a href={profile.links.instagram} target="_blank" rel="noopener noreferrer">{copy.instagram} ↗</a>
+            <a href={profile.links.x} target="_blank" rel="noopener noreferrer">{copy.x} ↗</a>
           </div>
         </section>
       </aside>

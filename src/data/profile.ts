@@ -9,32 +9,42 @@ export const profile = {
   links: {
     github: "https://github.com/aaronrss",
     linkedin: "https://www.linkedin.com/in/aaronrosas/",
-    instagram: "https://www.instagram.com/_aaronrosas_/",
+    instagram: "https://www.instagram.com/_rnrssr_/",
+    x: "https://x.com/rnrssr",
     soundcloud: "https://soundcloud.com/aaron_rosas",
-    mix: "https://on.soundcloud.com/avz8IpCPheya6miRHl",
+    mix: "https://soundcloud.com/aaron_rosas/roomservice-2026-02-08",
   },
   role: {
-    en: "Software Engineer · Backend, Cloud & Application Delivery",
-    es: "Software Engineer · Backend, Cloud y Application Delivery",
+    en: "Software Engineer · QA, AI-Assisted Technical Audit & Application Delivery",
+    es: "Software Engineer · QA, Auditoría Técnica con IA y Application Delivery",
   },
   summary: {
-    en: "I build reliable backend systems and the delivery paths around them: automation, cloud-native operations, observability, and documentation that makes complex software easier to run.",
-    es: "Construyo sistemas backend confiables y las rutas que los llevan a producción: automatización, operación cloud-native, observabilidad y documentación que vuelve comprensible el software complejo.",
+    en: "I work across software quality and delivery: AI-assisted technical audits, code validation, acceptance-criteria compliance, findings follow-up, and dependable paths to production.",
+    es: "Trabajo entre la calidad y la entrega de software: auditoría técnica asistida por IA, validación de código, cumplimiento de criterios de aceptación, seguimiento de hallazgos y rutas confiables a producción.",
   },
   skills: {
     backend: ["Java", "Spring Boot", "Python", "Bash", "SQL", "REST APIs", "Microservices", "Pentaho ETL"],
     delivery: ["Docker", "Kubernetes", "AWS", "Jenkins", "CI/CD", "Linux", "Git"],
-    observability: ["Splunk", "Grafana", "Prometheus", "SonarQube", "JUnit", "Mockito"],
+    observability: ["AI-assisted Code Review", "Acceptance Criteria Validation", "Technical Auditing", "Splunk", "Grafana", "Prometheus", "SonarQube", "JUnit", "Mockito"],
     data: ["Oracle", "Sybase", "PostgreSQL", "MySQL", "MongoDB"],
   },
   experience: [
     {
-      title: { en: "Application Delivery", es: "Application Delivery" },
+      title: { en: "QA — AI-Assisted L2 Technical Auditor", es: "QA — Auditor técnico L2 asistido por IA" },
       company: "Quanta",
-      period: { en: "Current role", es: "Rol actual" },
+      period: { en: "Current", es: "Actual" },
       description: {
-        en: "Application delivery work for the financial sector, focused on dependable software operations and controlled delivery.",
-        es: "Trabajo de application delivery para el sector financiero, enfocado en operación confiable y entrega controlada de software.",
+        en: "Conduct AI-assisted, second-level technical audits: validate code against acceptance criteria, assess findings and risks, review evidence and traceability, and verify remediation before closure.",
+        es: "Realizo auditorías técnicas de segundo nivel asistidas por IA: valido código contra criterios de aceptación (CAs), evalúo hallazgos y riesgos, reviso evidencia y trazabilidad, y verifico su remediación antes del cierre.",
+      },
+    },
+    {
+      title: { en: "Application Delivery", es: "Application Delivery" },
+      company: "Valores Mexicanos Casa de Bolsa (VALMEX)",
+      period: { en: "Current", es: "Actual" },
+      description: {
+        en: "Application Delivery work for a regulated financial institution, supporting controlled and dependable software delivery.",
+        es: "Trabajo en Application Delivery para una institución financiera regulada, apoyando una entrega de software controlada y confiable.",
       },
     },
     {
