@@ -64,4 +64,4 @@ Landing pública **Astro** (`aaronrss.github.io`): portfolio, blog (MDX) y conta
 
 - Skills de repo: **`.agents/skills/<name>/SKILL.md`** (hub interoperable).
 - Claude: ver `.claude/skills/` (symlinks al hub si se aplicó adapter).
-- Matriz validada: `labs/agent-bootstraps/docs/runtime-matrix.md` en el host.
+- Matriz validada: `system/agents-bootstrap/docs/runtime-matrix.md` en el host.
